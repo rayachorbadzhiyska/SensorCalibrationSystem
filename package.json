@@ -1,0 +1,36 @@
+{
+  "name": "sensorcalibrationsystem",
+  "version": "1.0.0",
+  "description": "A GUI for MEMS sensors calibration.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rayachorbadzhiyska/SensorCalibrationSystem.git"
+  },
+  "keywords": [
+    "MEMS",
+    "sensor",
+    "sensors",
+    "calibration",
+    "GUI",
+    "WPF",
+    "MVVM"
+  ],
+  "author": "Raya Chorbadzhiyska",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rayachorbadzhiyska/SensorCalibrationSystem/issues"
+  },
+  "homepage": "https://github.com/rayachorbadzhiyska/SensorCalibrationSystem#readme",
+  "devDependencies": {
+    "@babylonjs/core": "^6.43.0",
+    "@babylonjs/inspector": "^6.43.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.90.2",
+    "webpack-cli": "^5.1.4"
+  }
+}
