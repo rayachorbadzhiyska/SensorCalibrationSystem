@@ -10,6 +10,19 @@
 	Height="450"
 	mc:Ignorable="d">
 	<Grid>
-		<views:PrintedCircuitBoard3DView DataContext="{Binding PrintedCircuitBoard3DViewModel}" />
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<ItemsControl
+			Grid.Column="0"
+			ItemTemplate="{DynamicResource NavigationMenuItemTemplate}"
+			ItemsSource="{Binding NavigationPages}" />
+		<Frame
+			Grid.Column="1"
+			Margin="10"
+			Content="{Binding SelectedPage, UpdateSourceTrigger=PropertyChanged}"
+			Focusable="False"
+			NavigationUIVisibility="Hidden" />
 	</Grid>
 </Window>

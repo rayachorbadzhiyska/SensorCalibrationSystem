@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SensorCalibrationSystem.Contracts;
 using SensorCalibrationSystem.ViewModels;
 using SensorCalibrationSystem.Views;
 using System;
@@ -12,7 +13,7 @@ namespace SensorCalibrationSystem
     public partial class App : Application
     {
         private IServiceProvider serviceProvider;
-        
+
         public App()
         {
             ServiceCollection services = new ServiceCollection();
@@ -25,8 +26,17 @@ namespace SensorCalibrationSystem
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<MainWindow>();
 
+            services.AddSingleton<INavigationPage, HardwareSetupViewModel>();
+            services.AddSingleton<HardwareSetupPage>();
+
             services.AddSingleton<PrintedCircuitBoard3DViewModel>();
             services.AddSingleton<PrintedCircuitBoard3DView>();
+
+            services.AddSingleton<INavigationPage, MemoryMapViewModel>();
+            services.AddSingleton<MemoryMapPage>();
+
+            services.AddSingleton<INavigationPage, CalibrationViewModel>();
+            services.AddSingleton<CalibrationPage>();
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
