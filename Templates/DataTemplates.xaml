@@ -45,4 +45,57 @@
 		</RadioButton>
 	</DataTemplate>
 
+
+	<DataTemplate x:Key="SensorInformationItemTemplate">
+		<Border
+			BorderBrush="LightGray"
+			BorderThickness="1"
+			CornerRadius="4">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+				<Label
+					Grid.Row="0"
+					HorizontalAlignment="Center"
+					Content="{Binding Name}" />
+				<Image
+					Grid.Row="1"
+					Width="100"
+					Height="75"
+					RenderOptions.BitmapScalingMode="NearestNeighbor"
+					Source="{Binding ImagePath}" />
+				<Border
+					Grid.Row="1"
+					Width="20"
+					Height="20"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					BorderBrush="SteelBlue"
+					BorderThickness="1"
+					CornerRadius="15"
+					Cursor="Hand"
+					ToolTipService.InitialShowDelay="10">
+					<Image
+						Width="12"
+						Height="12"
+						Source="/SensorCalibrationSystem;component/Resources/information-icon.png" />
+					<Border.ToolTip>
+						<DataGrid
+							AutoGenerateColumns="True"
+							BorderThickness="0"
+							CanUserAddRows="False"
+							CanUserDeleteRows="False"
+							CanUserReorderColumns="False"
+							CanUserResizeRows="False"
+							CanUserSortColumns="False"
+							HeadersVisibility="Column"
+							ItemsSource="{Binding TechnicalData}" />
+					</Border.ToolTip>
+				</Border>
+			</Grid>
+		</Border>
+	</DataTemplate>
+
 </ResourceDictionary>

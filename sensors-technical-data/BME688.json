@@ -1,0 +1,38 @@
+{
+    "Name": "BME688",
+    "ImagePath": "BME688.png",
+    "TechnicalData": [
+        {
+            "Parameter": "Package dimensions",
+            "Data": "8-Pin LGA with metal\n3.0 x 3.0 x 0.93 mm³"
+        },
+        {
+            "Parameter": "Operation range (full accuracy)",
+            "Data": "Pressure: 300 to 1100 hPa\nHumidity 0 to 100%\nTemperature: -40 to 85°C "
+        },
+        {
+            "Parameter": "Supply voltage",
+            "Data": "VDD: 1.71V to 3.6V\nVDDIO: 1.2V to 3.6V"
+        },
+        {
+            "Parameter": "Interface",
+            "Data": "I²C and SPI"
+        },
+        {
+            "Parameter": "Average current consumption",
+            "Data": "2.1 µA at 1 Hz humidity and temperature\n3.1 µA at 1 Hz pressure and temperature\n3.7 µA at 1 Hz humidity, pressure and temperature\n90 µA at ULP mode for p/h/T & air quality\n0.9 mA at LP mode for p/h/T & air quality\n3.9 mA in standard gas scan mode"
+        },
+        {
+            "Parameter": "Gas sensor",
+            "Data": "F1 score for H₂S scanning: 0.94\nStandard scan speed: 10.8 s / scan\nElectric charge for standard scan: 0.18 mAh (5 scans ~ 1 min)\nResponse time (τ 33-63%): < 1 s (for new sensors)\nSensor-to-sensor deviation: +/- 15% +/- 15\nPower consumption: < 0.1 mA in ultra-low power mode\nOutput data processing: Major direct outputs: Index for Air Quality (IAQ), bVOC-& CO₂-equivalents (ppm), Gas scan result (%) & many more"
+        },
+        {
+            "Parameter": "Humidity sensor",
+            "Data": "Response time (τ0-63%): 8s\nAccuracy tolerance: ± 3 % relative humidity\nHysteresis: ≤ 1.5 % relative humidity"
+        },
+        {
+            "Parameter": "Pressure sensor",
+            "Data": "RMS Noise: 0.12 Pa (equiv. to 1.7 cm)\nSensitivity Error: ± 0.25 % (equiv. to 1 m at 400 m height change)\nTemperature coefficient offset: ±1.3 Pa/K (equiv. to ±10.9 cm at 1°C temperature change)"
+        }
+    ]
+}

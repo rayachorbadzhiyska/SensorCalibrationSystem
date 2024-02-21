@@ -1,0 +1,18 @@
+{
+    "Name": "BHI260AP",
+    "ImagePath": "BHI260AP.png",
+    "TechnicalData": [
+        {
+            "Parameter": "Operating voltage",
+            "Data": "1.8 V"
+        },
+        {
+            "Parameter": "CPU current consumption",
+            "Data": "Self-learning AI function (25 Hz): 249 \u00B5A\nSelf-learning AI function (50 Hz): 386 \u00B5A\nStandby current: 8 \u00B5A"
+        },
+        {
+            "Parameter": "Performance",
+            "Data": "Self-learning AI Software New activity Learning Time / Personalization time: < 30 secs\nTypical Recognition rate (F1 score) personalized to individuals: 0.95~1.0"
+        }
+    ]
+}

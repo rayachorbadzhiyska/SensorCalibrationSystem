@@ -1,0 +1,46 @@
+{
+    "Name": "BMM150",
+    "ImagePath": "BMM150.png",
+    "TechnicalData": [
+        {
+            "Parameter": "Package",
+            "Data": "WLCSP - (12 pin)\n1.56x1.56x0.6 mm³\n0.4 mm diagonal ball pitch "
+        },
+        {
+            "Parameter": "Temperature range",
+            "Data": "-40°C to +85°C"
+        },
+        {
+            "Parameter": "Digital interfaces",
+            "Data": "I²C and SPI\n(2 interrupt pins)"
+        },
+        {
+            "Parameter": "Resolution",
+            "Data": "0.3μT"
+        },
+        {
+            "Parameter": "Supply voltage",
+            "Data": "VDD: 1.62V to 3.6V\nVDDIO: 1.2V to 3.6V"
+        },
+        {
+            "Parameter": "Zero-B offset",
+            "Data": "±40μT"
+        },
+        {
+            "Parameter": "Non-linearity",
+            "Data": "<1% FS"
+        },
+        {
+            "Parameter": "Magnetic range typ.",
+            "Data": "±1300μT (x,y-axis)\n±2500μT (z-axis)"
+        },
+        {
+            "Parameter": "Average current consumption",
+            "Data": "170 μA (low power preset)\n500 μA (normal mode)"
+        },
+        {
+            "Parameter": "Interrupts",
+            "Data": "New data, magnetic threshold high / low"
+        }
+    ]
+}

@@ -9,19 +9,45 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\BHI260AP.png" />
+    <None Remove="Resources\BME688.png" />
+    <None Remove="Resources\BMM150.png" />
+    <None Remove="Resources\BMP390.png" />
+    <None Remove="Resources\information-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="121.3.70" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="System.Text.Json" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\BHI260AP.png" />
+    <Resource Include="Resources\BME688.png" />
+    <Resource Include="Resources\BMM150.png" />
+    <Resource Include="Resources\BMP390.png" />
+    <Resource Include="Resources\information-icon.png" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="PrintedCircuitBoard3D.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
+    <None Update="sensors-technical-data\BHI260AP.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="sensors-technical-data\BME688.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="sensors-technical-data\BMM150.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="sensors-technical-data\BMP390.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

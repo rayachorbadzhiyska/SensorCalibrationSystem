@@ -1,0 +1,54 @@
+{
+    "Name": "BMP390",
+    "ImagePath": "BMP390.png",
+    "TechnicalData": [
+        {
+            "Parameter": "Operation range (full accuracy)",
+            "Data": "Pressure: 300 to 1250 hPa"
+        },
+        {
+            "Parameter": "Supply voltage",
+            "Data": "VDD: 1.65V to 3.6V\nVDDIO: 1.2V to 3.6V"
+        },
+        {
+            "Parameter": "Interface",
+            "Data": "I²C and SPI"
+        },
+        {
+            "Parameter": "Average typical current consumption (1 Hz data rate)",
+            "Data": "3.2 μA @ 1 Hz"
+        },
+        {
+            "Parameter": "Absolute accuracy pressure (typ.)\nP=300 to 1100 hPa (T=0 to 65 °C)",
+            "Data": "±0.50 hPa"
+        },
+        {
+            "Parameter": "Relative accuracy pressure (typ.)\nP=700 to 1100 hPa (T=25 to 40°C)",
+            "Data": "±0.03 hPa\n(equivalent to ±25 cm)"
+        },
+        {
+            "Parameter": "RMS noise in pressure\nlowest bandwidth, highest resolution",
+            "Data": "0.02 Pa"
+        },
+        {
+            "Parameter": "Temperature coefficient offset (25° to 40°C at 900 hPa)",
+            "Data": "±0.6 Pa/K"
+        },
+        {
+            "Parameter": "Long-term stability (12 months)",
+            "Data": "±0.16 hPa"
+        },
+        {
+            "Parameter": "Solder drift",
+            "Data": "< ±0.8 hPa"
+        },
+        {
+            "Parameter": "Maximum sampling rate",
+            "Data": "200 Hz"
+        },
+        {
+            "Parameter": "Package dimensions",
+            "Data": "10-pin LGA with metal lid 2.0 x 2.0 x 0.75 mm³"
+        }
+    ]
+}

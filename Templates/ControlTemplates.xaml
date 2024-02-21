@@ -27,4 +27,8 @@
 		</Grid>
 	</ControlTemplate>
 
+	<ControlTemplate x:Key="SensorInformationTemplate" TargetType="ListBoxItem">
+		<ContentPresenter HorizontalAlignment="Left" />
+	</ControlTemplate>
+
 </ResourceDictionary>
