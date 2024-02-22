@@ -1,5 +1,6 @@
 {
     "Name": "BHI260AP",
+    "Type": "Self-learning AI smart sensor with integrated IMU",
     "ImagePath": "BHI260AP.png",
     "TechnicalData": [
         {

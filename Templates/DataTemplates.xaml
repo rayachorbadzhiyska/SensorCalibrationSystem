@@ -82,16 +82,29 @@
 						Height="12"
 						Source="/SensorCalibrationSystem;component/Resources/information-icon.png" />
 					<Border.ToolTip>
-						<DataGrid
-							AutoGenerateColumns="True"
-							BorderThickness="0"
-							CanUserAddRows="False"
-							CanUserDeleteRows="False"
-							CanUserReorderColumns="False"
-							CanUserResizeRows="False"
-							CanUserSortColumns="False"
-							HeadersVisibility="Column"
-							ItemsSource="{Binding TechnicalData}" />
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+							<Label
+								Grid.Row="0"
+								HorizontalAlignment="Center"
+								Content="{Binding Type}"
+								FontStyle="Italic"
+								FontWeight="Bold" />
+							<DataGrid
+								Grid.Row="1"
+								AutoGenerateColumns="True"
+								BorderThickness="0"
+								CanUserAddRows="False"
+								CanUserDeleteRows="False"
+								CanUserReorderColumns="False"
+								CanUserResizeRows="False"
+								CanUserSortColumns="False"
+								HeadersVisibility="Column"
+								ItemsSource="{Binding TechnicalData}" />
+						</Grid>
 					</Border.ToolTip>
 				</Border>
 			</Grid>

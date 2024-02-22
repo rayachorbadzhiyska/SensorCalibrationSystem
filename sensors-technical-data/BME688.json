@@ -1,5 +1,6 @@
 {
     "Name": "BME688",
+    "Type": "Gas sensor with Artificial Intelligence (AI)",
     "ImagePath": "BME688.png",
     "TechnicalData": [
         {

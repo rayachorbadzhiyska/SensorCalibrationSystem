@@ -1,5 +1,6 @@
 {
     "Name": "BMM150",
+    "Type": "Magnetometer",
     "ImagePath": "BMM150.png",
     "TechnicalData": [
         {

@@ -1,5 +1,6 @@
 {
     "Name": "BMP390",
+    "Type": "Pressure sensor",
     "ImagePath": "BMP390.png",
     "TechnicalData": [
         {
