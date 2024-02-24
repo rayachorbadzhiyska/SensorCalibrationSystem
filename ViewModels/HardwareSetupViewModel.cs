@@ -42,6 +42,8 @@ namespace SensorCalibrationSystem.ViewModels
 
         public IRelayCommand OnLoadedCommand { get; }
 
+        public IRelayCommand OnUnloadedCommand { get; }
+
         #endregion
 
         #region Constructor
@@ -53,6 +55,7 @@ namespace SensorCalibrationSystem.ViewModels
             Sensors = new();
 
             OnLoadedCommand = new RelayCommand(OnLoaded);
+            OnUnloadedCommand = new RelayCommand(OnUnloaded);
         }
 
         #endregion
@@ -69,13 +72,26 @@ namespace SensorCalibrationSystem.ViewModels
 
                 SensorModel sensor = JsonSerializer.Deserialize<SensorModel>(jsonData);
 
-                Sensors.Add(sensor);
+                if (sensor is not null)
+                {
+                    Sensors.Add(sensor);
+                }
             }
         }
 
         private void OnLoaded()
         {
-            LoadSensorsTechnicalData();
+            if (!HasBeenLoaded)
+            {
+                LoadSensorsTechnicalData();
+
+                HasBeenLoaded = true;
+            }
+        }
+
+        private void OnUnloaded()
+        {
+
         }
 
         #endregion

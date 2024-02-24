@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SensorCalibrationSystem.Contracts;
+using SensorCalibrationSystem.Services;
 using SensorCalibrationSystem.ViewModels;
 using SensorCalibrationSystem.Views;
 using System;
@@ -37,6 +38,8 @@ namespace SensorCalibrationSystem
 
             services.AddSingleton<INavigationPage, CalibrationViewModel>();
             services.AddSingleton<CalibrationPage>();
+
+            services.AddSingleton<IBoardCommunicationService, BoardCommunicationService>();
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)

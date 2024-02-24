@@ -1,4 +1,5 @@
-﻿using SensorCalibrationSystem.ViewModels;
+﻿using SensorCalibrationSystem.Contracts;
+using SensorCalibrationSystem.ViewModels;
 using System.Windows;
 
 namespace SensorCalibrationSystem
@@ -8,10 +9,22 @@ namespace SensorCalibrationSystem
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(MainViewModel viewModel)
+        private readonly IBoardCommunicationService boardCommunicationService;
+
+        public MainWindow(MainViewModel viewModel, IBoardCommunicationService boardCommunicationService)
         {
             InitializeComponent();
             DataContext = viewModel;
+
+            this.boardCommunicationService = boardCommunicationService;
+
+            // Open the serial port
+            this.boardCommunicationService.Connect();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            boardCommunicationService.Disconnect();
         }
     }
 }
