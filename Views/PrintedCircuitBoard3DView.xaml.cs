@@ -17,6 +17,10 @@ namespace SensorCalibrationSystem.Views
         public PrintedCircuitBoard3DView()
         {
             InitializeComponent();
+
+            string localServerPort = SensorCalibrationSystem.Resources.Resources.LocalServerPort;
+
+            PCB3DView.Address = $"localhost:{localServerPort}/PrintedCircuitBoard3D.html";
         }
 
         private void PrintedCircuit3DControl_Loaded(object sender, RoutedEventArgs e)

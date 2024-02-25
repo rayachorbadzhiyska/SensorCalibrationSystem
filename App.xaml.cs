@@ -4,6 +4,9 @@ using SensorCalibrationSystem.Services;
 using SensorCalibrationSystem.ViewModels;
 using SensorCalibrationSystem.Views;
 using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace SensorCalibrationSystem
@@ -42,10 +45,34 @@ namespace SensorCalibrationSystem
             services.AddSingleton<IBoardCommunicationService, BoardCommunicationService>();
         }
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
+            await StartServer();
+
             var mainWindow = serviceProvider.GetService<MainWindow>();
             mainWindow?.Show();
+        }
+
+        /// <summary>
+        /// Starts the server, which hosts the available resources.
+        /// </summary>
+        /// <returns></returns>
+        private async Task StartServer()
+        {
+            string localServerPort = SensorCalibrationSystem.Resources.Resources.LocalServerPort;
+
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = "python3",
+                Arguments = $"-m http.server {localServerPort}",
+                WorkingDirectory = Directory.GetCurrentDirectory(),
+                CreateNoWindow = true,
+                UseShellExecute = false
+            };
+
+            Process.Start(psi);
+
+            await Task.CompletedTask;
         }
     }
 }

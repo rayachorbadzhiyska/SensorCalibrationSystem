@@ -25,10 +25,7 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<wpf:ChromiumWebBrowser
-			x:Name="PCB3DView"
-			Grid.Row="0"
-			Address="localhost:9000/PrintedCircuitBoard3D.html" />
+		<wpf:ChromiumWebBrowser x:Name="PCB3DView" Grid.Row="0" />
 		<Label Grid.Row="1" Content="{Binding QuaternionModel, UpdateSourceTrigger=PropertyChanged}" />
 	</Grid>
 </UserControl>
