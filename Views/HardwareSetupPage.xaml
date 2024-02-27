@@ -22,20 +22,39 @@
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
-		<ListBox
-			Grid.Column="0"
-			Background="Transparent"
-			BorderThickness="0"
-			ItemContainerStyle="{StaticResource SensorInformationItemContainerStyle}"
-			ItemTemplate="{DynamicResource SensorInformationItemTemplate}"
-			ItemsSource="{Binding Sensors}"
-			ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-			<ListBox.ItemsPanel>
-				<ItemsPanelTemplate>
-					<WrapPanel Orientation="Horizontal" />
-				</ItemsPanelTemplate>
-			</ListBox.ItemsPanel>
-		</ListBox>
-		<local:PrintedCircuitBoard3DView Grid.Column="1" DataContext="{Binding PrintedCircuitBoard3DViewModel, UpdateSourceTrigger=PropertyChanged}" />
+		<Grid Grid.Column="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<ListBox
+				Name="SensorsDisplay"
+				Grid.Row="0"
+				Background="Transparent"
+				BorderThickness="0"
+				ItemContainerStyle="{StaticResource SensorInformationItemContainerStyle}"
+				ItemTemplate="{DynamicResource SensorInformationItemTemplate}"
+				ItemsSource="{Binding Sensors}"
+				MouseMove="SensorsDisplay_MouseMove"
+				ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel Orientation="Horizontal" />
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+			</ListBox>
+		</Grid>
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<Image
+				x:Name="BoardDisplay"
+				Grid.Row="0"
+				HorizontalAlignment="Center"
+				Source="/SensorCalibrationSystem;component/Resources/board-top.png" />
+			<local:PrintedCircuitBoard3DView Grid.Row="1" DataContext="{Binding PrintedCircuitBoard3DViewModel}" />
+		</Grid>
 	</Grid>
 </Page>

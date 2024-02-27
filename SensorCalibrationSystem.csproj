@@ -9,10 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\BHI260AP-on-board.png" />
     <None Remove="Resources\BHI260AP.png" />
+    <None Remove="Resources\BME688-on-board.png" />
     <None Remove="Resources\BME688.png" />
+    <None Remove="Resources\BMM150-on-board.png" />
     <None Remove="Resources\BMM150.png" />
+    <None Remove="Resources\BMP390-on-board.png" />
     <None Remove="Resources\BMP390.png" />
+    <None Remove="Resources\board-top.png" />
     <None Remove="Resources\information-icon.png" />
   </ItemGroup>
 
@@ -26,10 +31,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\BHI260AP-on-board.png" />
     <Resource Include="Resources\BHI260AP.png" />
+    <Resource Include="Resources\BME688-on-board.png" />
     <Resource Include="Resources\BME688.png" />
+    <Resource Include="Resources\BMM150-on-board.png" />
     <Resource Include="Resources\BMM150.png" />
+    <Resource Include="Resources\BMP390-on-board.png" />
     <Resource Include="Resources\BMP390.png" />
+    <Resource Include="Resources\board-top.png" />
     <Resource Include="Resources\information-icon.png" />
   </ItemGroup>
 
