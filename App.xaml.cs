@@ -30,6 +30,9 @@ namespace SensorCalibrationSystem
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<MainWindow>();
 
+            services.AddSingleton<SerialPortConfigurationViewModel>();
+            services.AddSingleton<SerialPortConfigurationWindow>();
+
             services.AddSingleton<INavigationPage, HardwareSetupViewModel>();
             services.AddSingleton<HardwareSetupPage>();
 
@@ -49,7 +52,7 @@ namespace SensorCalibrationSystem
         {
             await StartServer();
 
-            var mainWindow = serviceProvider.GetService<MainWindow>();
+            var mainWindow = serviceProvider.GetService<SerialPortConfigurationWindow>();
             mainWindow?.Show();
         }
 

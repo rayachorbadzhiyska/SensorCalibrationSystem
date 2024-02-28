@@ -16,13 +16,10 @@ namespace SensorCalibrationSystem.Services
         public BoardCommunicationService()
         {
             serialPort = new();
-            serialPort.PortName = "COM3";
             serialPort.BaudRate = 115200;
-            serialPort.ReadTimeout = 5000;
             serialPort.NewLine = "\n";
             serialPort.StopBits = StopBits.One;
             serialPort.Parity = Parity.None;
-            serialPort.ReadBufferSize = 8192;
             serialPort.DataReceived += BoardCommunicationService_SerialDataReceived;
         }
 
@@ -38,8 +35,10 @@ namespace SensorCalibrationSystem.Services
         }
 
         /// <inheritdoc />
-        public void Connect()
+        public void Connect(string port)
         {
+            serialPort.PortName = port;
+
             serialPort.Open();
         }
 

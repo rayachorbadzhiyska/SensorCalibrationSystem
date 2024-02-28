@@ -13,9 +13,10 @@ namespace SensorCalibrationSystem.Contracts
         event EventHandler<string>? SerialDataReceived;
 
         /// <summary>
-        /// Connects to the board.
+        /// Connects to the board on the specified serial port.
         /// </summary>
-        void Connect();
+        /// <param name="port">The serial port.</param>
+        void Connect(string port);
 
         /// <summary>
         /// Disconnects from the board.

@@ -38,6 +38,7 @@
 						Grid.Row="1"
 						Padding="7,5"
 						FontSize="9"
+						Foreground="White"
 						Text="{Binding Name}"
 						TextAlignment="Left" />
 				</Grid>
@@ -48,6 +49,7 @@
 
 	<DataTemplate x:Key="SensorInformationItemTemplate">
 		<Border
+			Background="White"
 			BorderBrush="LightGray"
 			BorderThickness="1"
 			CornerRadius="4">

@@ -17,9 +17,6 @@ namespace SensorCalibrationSystem
             DataContext = viewModel;
 
             this.boardCommunicationService = boardCommunicationService;
-
-            // Open the serial port
-            this.boardCommunicationService.Connect();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

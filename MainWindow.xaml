@@ -8,6 +8,7 @@
 	Title="Sensor Calibration System"
 	Width="800"
 	Height="450"
+	Background="#363636"
 	Closing="Window_Closing"
 	WindowState="Maximized"
 	mc:Ignorable="d">
