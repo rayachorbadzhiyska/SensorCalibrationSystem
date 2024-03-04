@@ -38,7 +38,7 @@
 						Grid.Row="1"
 						Padding="7,5"
 						FontSize="9"
-						Foreground="White"
+						Foreground="#6bace5"
 						Text="{Binding Name}"
 						TextAlignment="Left" />
 				</Grid>
@@ -46,14 +46,14 @@
 		</RadioButton>
 	</DataTemplate>
 
-
 	<DataTemplate x:Key="SensorInformationItemTemplate">
 		<Border
-			Background="White"
+			Padding="7"
+			Background="#6bace5"
 			BorderBrush="LightGray"
 			BorderThickness="1"
 			CornerRadius="4">
-			<Grid>
+			<Grid Margin="0,-5,0,0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="*" />
@@ -61,7 +61,8 @@
 				<Label
 					Grid.Row="0"
 					HorizontalAlignment="Center"
-					Content="{Binding Name}" />
+					Content="{Binding Name}"
+					FontWeight="SemiBold" />
 				<Image
 					Grid.Row="1"
 					Width="100"
@@ -70,18 +71,20 @@
 					Source="{Binding ImagePath}" />
 				<Border
 					Grid.Row="1"
-					Width="20"
-					Height="20"
+					Width="17"
+					Height="17"
+					Margin="0,0,-2,-2"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Bottom"
-					BorderBrush="SteelBlue"
+					Background="White"
+					BorderBrush="White"
 					BorderThickness="1"
 					CornerRadius="15"
 					Cursor="Hand"
 					ToolTipService.InitialShowDelay="10">
 					<Image
-						Width="12"
-						Height="12"
+						Width="10"
+						Height="10"
 						Source="/SensorCalibrationSystem;component/Resources/information-icon.png" />
 					<Border.ToolTip>
 						<Grid>

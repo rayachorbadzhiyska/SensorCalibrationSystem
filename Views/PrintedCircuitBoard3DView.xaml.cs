@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using SensorCalibrationSystem.Contracts;
 using SensorCalibrationSystem.Models;
 using SensorCalibrationSystem.ViewModels;
 using System.Globalization;
@@ -10,16 +11,16 @@ namespace SensorCalibrationSystem.Views
     /// <summary>
     /// Interaction logic for PrintedCircuitBoard3DView.xaml
     /// </summary>
-    public partial class PrintedCircuitBoard3DView : UserControl
+    public partial class PrintedCircuitBoard3DView : UserControl, IReloadable
     {
-        PrintedCircuitBoard3DViewModel viewModel;
+        private readonly string localServerPort = SensorCalibrationSystem.Resources.Resources.LocalServerPort;
+        private PrintedCircuitBoard3DViewModel viewModel;
+
+        public bool HasBeenLoaded { get; set; }
 
         public PrintedCircuitBoard3DView()
         {
             InitializeComponent();
-
-            string localServerPort = SensorCalibrationSystem.Resources.Resources.LocalServerPort;
-
             PCB3DView.Address = $"localhost:{localServerPort}/PrintedCircuitBoard3D.html";
         }
 
@@ -38,9 +39,27 @@ namespace SensorCalibrationSystem.Views
             {
                 if (!args.IsLoading)
                 {
+                    // Create the box design only once.
+                    if (!HasBeenLoaded)
+                    {
+                        createBoxDesign();
+
+                        HasBeenLoaded = true;
+                    }
+
                     viewModel.QuaternionValuesReceived += PCB3DView_QuaternionValuesReceived;
                 }
             };
+        }
+
+        private void createBoxDesign()
+        {
+            string frontDesignImagePath = @$"'http://localhost:{localServerPort}/Resources/board-3d-front.png'";
+            string backDesignImagePath = @$"'http://localhost:{localServerPort}/Resources/board-3d-back.png'";
+
+            string script = $"createBoxDesign({frontDesignImagePath}, {backDesignImagePath});";
+
+            PCB3DView.ExecuteScriptAsync(script);
         }
 
         private void PCB3DView_QuaternionValuesReceived(object? sender, QuaternionModel e)

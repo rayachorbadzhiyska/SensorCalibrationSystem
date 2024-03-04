@@ -20,12 +20,13 @@
 			<b:InvokeCommandAction Command="{Binding OnUnloadedCommand}" />
 		</b:EventTrigger>
 	</b:Interaction.Triggers>
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<wpf:ChromiumWebBrowser x:Name="PCB3DView" Grid.Row="0" />
-		<Label Grid.Row="1" Content="{Binding QuaternionModel, UpdateSourceTrigger=PropertyChanged}" />
+	<Grid UseLayoutRounding="True">
+		<wpf:ChromiumWebBrowser
+			x:Name="PCB3DView"
+			Width="400"
+			Height="300"
+			RenderOptions.BitmapScalingMode="HighQuality"
+			ScrollViewer.CanContentScroll="False"
+			ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
 	</Grid>
 </UserControl>

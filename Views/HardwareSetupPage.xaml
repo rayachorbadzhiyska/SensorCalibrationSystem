@@ -49,11 +49,34 @@
 				<RowDefinition Height="*" />
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-			<Image
-				x:Name="BoardDisplay"
-				Grid.Row="0"
-				HorizontalAlignment="Center"
-				Source="/SensorCalibrationSystem;component/Resources/board-top.png" />
+			<Grid Grid.Row="0">
+				<Image
+					x:Name="BoardDisplay"
+					HorizontalAlignment="Center"
+					Source="/SensorCalibrationSystem;component/Resources/board-front.png" />
+				<StackPanel
+					Name="ChangeBoardDisplayOptionsPanel"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Top"
+					Orientation="Vertical">
+					<RadioButton
+						Name="FrontBoardViewButton"
+						Click="FrontBoardViewButton_Click"
+						Content="Front"
+						IsChecked="True"
+						Style="{StaticResource BoardDisplayButtonStyle}" />
+					<RadioButton
+						Name="BackBoardViewButton"
+						Click="BackBoardViewButton_Click"
+						Content="Back"
+						Style="{StaticResource BoardDisplayButtonStyle}" />
+					<RadioButton
+						Name="PinoutBoardViewButton"
+						Click="PinoutBoardViewButton_Click"
+						Content="Pinout"
+						Style="{StaticResource BoardDisplayButtonStyle}" />
+				</StackPanel>
+			</Grid>
 			<local:PrintedCircuitBoard3DView Grid.Row="1" DataContext="{Binding PrintedCircuitBoard3DViewModel}" />
 		</Grid>
 	</Grid>

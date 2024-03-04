@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
 </head>
 <body>
-    <canvas id="renderCanvas"></canvas>
+    <canvas id="renderCanvas" width="375" height="200"></canvas>
     <script>
 		function updateSceneWithQuaternion(quaternionX, quaternionY, quaternionZ, quaternionW) {
 			// Update the scene based on quaternion data
@@ -19,6 +19,7 @@
 		var engine = new BABYLON.Engine(canvas, true);
 
 		var scene = new BABYLON.Scene(engine);
+		scene.clearColor = new BABYLON.Color3.FromHexString('#6BACE5');
 
 		// Create a camera
 		var camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 20, 5), scene);
@@ -33,6 +34,24 @@
 
 		// Our built-in 'sphere' shape.
 		var box = BABYLON.MeshBuilder.CreateBox("box", { width: 10, height: 10, depth: 0.5 }, scene);
+
+		function createBoxDesign(frontDesignImagePath, backDesignImagePath) {
+			// Create materials for front and back faces
+			var frontMaterial = new BABYLON.StandardMaterial("frontMaterial", scene);
+			var backMaterial = new BABYLON.StandardMaterial("backMaterial", scene);
+
+			// Load images for front and back
+			frontMaterial.diffuseTexture = new BABYLON.Texture(frontDesignImagePath, scene);
+			backMaterial.diffuseTexture = new BABYLON.Texture(backDesignImagePath, scene);
+
+			// Create a multi-material
+			var multiMaterial = new BABYLON.MultiMaterial("multiMaterial", scene);
+			multiMaterial.subMaterials.push(frontMaterial);
+			multiMaterial.subMaterials.push(backMaterial);
+
+			// Apply the multi-material to the box
+			box.material = multiMaterial;
+		}
 
 		engine.runRenderLoop(function () {
 			scene.render();

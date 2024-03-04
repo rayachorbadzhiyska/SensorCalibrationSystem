@@ -17,13 +17,17 @@
     <None Remove="Resources\BMM150.png" />
     <None Remove="Resources\BMP390-on-board.png" />
     <None Remove="Resources\BMP390.png" />
-    <None Remove="Resources\board-top.png" />
+    <None Remove="Resources\board-back.png" />
+    <None Remove="Resources\board-front.png" />
+    <None Remove="Resources\board-pinout.png" />
+    <None Remove="Resources\board-top-transparent.png" />
     <None Remove="Resources\information-icon.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="121.3.70" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="System.IO.Ports" Version="8.0.0" />
@@ -40,7 +44,9 @@
     <Resource Include="Resources\BMM150.png" />
     <Resource Include="Resources\BMP390-on-board.png" />
     <Resource Include="Resources\BMP390.png" />
-    <Resource Include="Resources\board-top.png" />
+    <Resource Include="Resources\board-back.png" />
+    <Resource Include="Resources\board-front.png" />
+    <Resource Include="Resources\board-pinout.png" />
     <Resource Include="Resources\information-icon.png" />
   </ItemGroup>
 
@@ -64,6 +70,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\baud-rates.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\board-3d-back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\board-3d-front.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\board-3d-front.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="sensors-technical-data\BHI260AP.json">
