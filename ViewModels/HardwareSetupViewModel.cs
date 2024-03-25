@@ -14,7 +14,7 @@ namespace SensorCalibrationSystem.ViewModels
 
         public string Name { get; set; } = "Hardware Setup";
 
-        public string Logo { get; set; }
+        public string Logo { get; set; } = "/Resources/hardware-setup.png";
 
         public int NavigationIndex { get; set; }
 

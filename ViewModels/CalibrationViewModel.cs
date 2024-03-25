@@ -8,7 +8,7 @@ namespace SensorCalibrationSystem.ViewModels
 
         public string Name { get; set; } = "Calibration";
 
-        public string Logo { get; set; }
+        public string Logo { get; set; } = "/Resources/calibration.png";
 
         public int NavigationIndex { get; set; }
 

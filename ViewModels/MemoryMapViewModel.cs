@@ -8,7 +8,7 @@ namespace SensorCalibrationSystem.ViewModels
 
         public string Name { get; set; } = "Memory Map";
 
-        public string Logo { get; set; }
+        public string Logo { get; set; } = "/Resources/memory-map.png";
 
         public int NavigationIndex { get; set; }
 

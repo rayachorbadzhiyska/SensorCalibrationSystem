@@ -21,7 +21,10 @@
     <None Remove="Resources\board-front.png" />
     <None Remove="Resources\board-pinout.png" />
     <None Remove="Resources\board-top-transparent.png" />
+    <None Remove="Resources\calibration.png" />
+    <None Remove="Resources\hardware-setup.png" />
     <None Remove="Resources\information-icon.png" />
+    <None Remove="Resources\memory-map.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,7 +50,10 @@
     <Resource Include="Resources\board-back.png" />
     <Resource Include="Resources\board-front.png" />
     <Resource Include="Resources\board-pinout.png" />
+    <Resource Include="Resources\calibration.png" />
+    <Resource Include="Resources\hardware-setup.png" />
     <Resource Include="Resources\information-icon.png" />
+    <Resource Include="Resources\memory-map.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -31,7 +31,9 @@
 					</Grid.RowDefinitions>
 					<Image
 						Grid.Row="0"
+						Width="35"
 						Height="35"
+						Margin="5"
 						HorizontalAlignment="Center"
 						Source="{Binding Logo}" />
 					<TextBlock
