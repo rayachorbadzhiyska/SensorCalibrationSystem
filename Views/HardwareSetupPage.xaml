@@ -6,6 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:SensorCalibrationSystem.Views"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:models="clr-namespace:SensorCalibrationSystem.Models"
 	d:DesignHeight="450"
 	d:DesignWidth="800"
 	mc:Ignorable="d">
@@ -50,10 +51,13 @@
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
 			<Grid Grid.Row="0">
-				<Image
-					x:Name="BoardDisplay"
-					HorizontalAlignment="Center"
-					Source="/SensorCalibrationSystem;component/Resources/board-front.png" />
+				<models:ZoomBorder ClipToBounds="True">
+					<Image
+						x:Name="BoardDisplay"
+						HorizontalAlignment="Center"
+						Source="/SensorCalibrationSystem;component/Resources/board-front.png"
+						ToolTipService.InitialShowDelay="10" />
+				</models:ZoomBorder>
 				<StackPanel
 					Name="ChangeBoardDisplayOptionsPanel"
 					HorizontalAlignment="Right"
