@@ -1,6 +1,7 @@
 ﻿using SensorCalibrationSystem.Contracts;
 using SensorCalibrationSystem.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace SensorCalibrationSystem
@@ -21,11 +22,11 @@ namespace SensorCalibrationSystem
 
             StateChanged += OnWindowStateChanged;
 
-            MaxHeight = SystemParameters.VirtualScreenHeight;
-            MaxWidth = SystemParameters.VirtualScreenWidth;
+            MaxHeight = SystemParameters.VirtualScreenHeight - 35;
+            BorderThickness = new Thickness(6);
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
             boardCommunicationService.Disconnect();
         }
@@ -35,6 +36,7 @@ namespace SensorCalibrationSystem
         private void OnMinimizeButtonClick(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+            BorderThickness = new Thickness(0);
         }
 
         private void OnMaximizeRestoreButtonClick(object sender, RoutedEventArgs e)
@@ -42,10 +44,12 @@ namespace SensorCalibrationSystem
             if (WindowState == WindowState.Maximized)
             {
                 WindowState = WindowState.Normal;
+                BorderThickness = new Thickness(0);
             }
             else
             {
                 WindowState = WindowState.Maximized;
+                BorderThickness = new Thickness(6);
             }
         }
 
@@ -60,11 +64,13 @@ namespace SensorCalibrationSystem
             {
                 maximizeButton.Visibility = Visibility.Collapsed;
                 restoreButton.Visibility = Visibility.Visible;
+                BorderThickness = new Thickness(6);
             }
             else
             {
                 maximizeButton.Visibility = Visibility.Visible;
                 restoreButton.Visibility = Visibility.Collapsed;
+                BorderThickness = new Thickness(0);
             }
         }
 
