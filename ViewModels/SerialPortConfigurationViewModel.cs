@@ -3,11 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using SensorCalibrationSystem.Contracts;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Management;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Windows;
 
 namespace SensorCalibrationSystem.ViewModels
@@ -29,8 +26,6 @@ namespace SensorCalibrationSystem.ViewModels
             get => selectedDevice;
             set => SetProperty(ref selectedDevice, value);
         }
-
-        public int MaxBaudRate { get; set; } = int.MaxValue;
 
         public List<string> SerialPorts { get; }
 
@@ -62,11 +57,6 @@ namespace SensorCalibrationSystem.ViewModels
 
                         string deviceID = queryObj["DeviceID"].ToString();
                         ports.Add(deviceID);
-
-                        if (int.TryParse(queryObj["MaxBaudRate"].ToString(), out int maxBaudRate))
-                        {
-                            MaxBaudRate = maxBaudRate;
-                        }
                     }
                 }
             }
@@ -76,22 +66,6 @@ namespace SensorCalibrationSystem.ViewModels
             }
 
             return ports;
-        }
-
-        private List<int> GetBaudRates()
-        {
-            var options = new JsonSerializerOptions()
-            {
-                NumberHandling = JsonNumberHandling.AllowReadingFromString | JsonNumberHandling.WriteAsString
-            };
-
-            string filePath = @"Resources\baud-rates.json";
-            string jsonData = File.ReadAllText(filePath);
-
-            List<int> allBaudRates = JsonSerializer.Deserialize<List<int>>(jsonData, options);
-            List<int> availableBaudRates = allBaudRates.Where(x => x <= MaxBaudRate).ToList();
-
-            return availableBaudRates;
         }
 
         private void ConfigureSerialPort()

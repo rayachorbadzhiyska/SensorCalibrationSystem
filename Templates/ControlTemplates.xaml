@@ -1,5 +1,20 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+	<ControlTemplate x:Key="ConfigureButtonTemplate" TargetType="Button">
+		<Border
+			x:Name="Border"
+			Background="#dadada"
+			BorderBrush="#c0c0c0"
+			CornerRadius="4">
+			<Label Content="Configure" />
+		</Border>
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter TargetName="Border" Property="Background" Value="#cdcdcd" />
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
 	<ControlTemplate x:Key="NavigationMenuTemplate" TargetType="RadioButton">
 		<Grid>
 			<Grid.ColumnDefinitions>

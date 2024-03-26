@@ -1,4 +1,5 @@
 ﻿using SensorCalibrationSystem.ViewModels;
+using System;
 using System.Windows;
 
 namespace SensorCalibrationSystem.Views
@@ -19,10 +20,19 @@ namespace SensorCalibrationSystem.Views
             viewModel.OnSuccessfullyConfigured += SerialPort_OnSuccessfullyConfigured;
         }
 
-        private void SerialPort_OnSuccessfullyConfigured(object? sender, System.EventArgs e)
+        private void SerialPort_OnSuccessfullyConfigured(object? sender, EventArgs e)
         {
-            this.Close();
             mainWindow?.Show();
+
+            Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!mainWindow.IsActive)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }
