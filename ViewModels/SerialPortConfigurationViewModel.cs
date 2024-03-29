@@ -3,8 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using SensorCalibrationSystem.Contracts;
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
-using System.Management;
 using System.Windows;
 
 namespace SensorCalibrationSystem.ViewModels
@@ -43,30 +43,7 @@ namespace SensorCalibrationSystem.ViewModels
             ConfigureSerialPortCommand = new RelayCommand(ConfigureSerialPort);
         }
 
-        private List<string> GetPortNames()
-        {
-            List<string> ports = new List<string>();
-
-            try
-            {
-                using (var searcher = new ManagementObjectSearcher(@"SELECT * FROM Win32_SerialPort"))
-                {
-                    foreach (ManagementObject queryObj in searcher.Get())
-                    {
-                        var test = queryObj.Properties;
-
-                        string deviceID = queryObj["DeviceID"].ToString();
-                        ports.Add(deviceID);
-                    }
-                }
-            }
-            catch (ManagementException e)
-            {
-                MessageBox.Show(e.Message, "An error has occurred.", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            return ports;
-        }
+        private List<string> GetPortNames() => SerialPort.GetPortNames().ToList();
 
         private void ConfigureSerialPort()
         {
