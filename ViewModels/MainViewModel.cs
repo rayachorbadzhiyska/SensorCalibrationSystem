@@ -20,22 +20,7 @@ namespace SensorCalibrationSystem.ViewModels
         public INavigationPage SelectedPage
         {
             get => selectedPage;
-            set
-            {
-                // Navigate from the previously selected page (if there is any).
-                if (selectedPage is not null)
-                {
-                    selectedPage.OnNavigatedFrom();
-                    selectedPage.IsActive = false;
-                }
-
-                value.IsActive = true;
-
-                SetProperty(ref selectedPage, value);
-
-                // Navigate to the newly selected page.
-                selectedPage.OnNavigatedTo();
-            }
+            set => SetProperty(ref selectedPage, value);
         }
 
         public ObservableCollection<INavigationPage> NavigationPages { get; }
@@ -65,6 +50,12 @@ namespace SensorCalibrationSystem.ViewModels
             {
                 page.NavigationIndex = index++;
             }
+
+            if (NavigationPages.Count > 0)
+            {
+                NavigationPages.First().IsActive = true;
+                SelectedPage = NavigationPages.First();
+            }
         }
 
         #endregion
@@ -73,15 +64,19 @@ namespace SensorCalibrationSystem.ViewModels
 
         private void OnLoaded()
         {
-            if (NavigationPages.Count > 0)
-            {
-                SelectedPage = NavigationPages.First();
-            }
+            // Navigate to the first selected page.
+            SelectedPage.OnNavigatedTo();
         }
 
         private void ShowPage(int index)
         {
+            // Navigate from the previously selected page (if there is any).
+            SelectedPage?.OnNavigatedFrom();
+
             SelectedPage = NavigationPages[index];
+
+            // Navigate to the newly selected page.
+            SelectedPage.OnNavigatedTo();
         }
 
         #endregion
