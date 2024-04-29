@@ -32,22 +32,11 @@ namespace SensorCalibrationSystem.ViewModels
 
         #endregion
 
-        #region Commands
-
-        public IRelayCommand OnLoadedCommand { get; }
-
-        public IRelayCommand OnUnloadedCommand { get; }
-
-        #endregion
-
         #region Constructor
 
         public PrintedCircuitBoard3DViewModel(IBoardCommunicationService boardCommunicationService)
         {
             this.boardCommunicationService = boardCommunicationService ?? throw new ArgumentNullException(nameof(boardCommunicationService));
-
-            OnLoadedCommand = new RelayCommand(OnLoaded);
-            OnUnloadedCommand = new RelayCommand(OnUnloaded);
         }
 
         #endregion
@@ -91,13 +80,17 @@ namespace SensorCalibrationSystem.ViewModels
             }
         }
 
-        private void OnLoaded()
+        public void Load()
         {
             boardCommunicationService.SerialDataReceived += SerialPort_DataReceived;
+
+            boardCommunicationService.WriteLine("START_QUATERNION_VALUES_STREAMING");
         }
 
-        private void OnUnloaded()
+        public void Unload()
         {
+            boardCommunicationService.WriteLine("STOP_QUATERNION_VALUES_STREAMING");
+
             boardCommunicationService.SerialDataReceived -= SerialPort_DataReceived;
         }
 

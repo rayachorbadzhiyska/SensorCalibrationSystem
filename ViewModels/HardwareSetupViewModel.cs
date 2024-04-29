@@ -38,14 +38,6 @@ namespace SensorCalibrationSystem.ViewModels
 
         #endregion
 
-        #region Commands
-
-        public IRelayCommand OnLoadedCommand { get; }
-
-        public IRelayCommand OnUnloadedCommand { get; }
-
-        #endregion
-
         #region Constructor
 
         public HardwareSetupViewModel(PrintedCircuitBoard3DViewModel printedCircuitBoard3DViewModel)
@@ -53,9 +45,6 @@ namespace SensorCalibrationSystem.ViewModels
             PrintedCircuitBoard3DViewModel = printedCircuitBoard3DViewModel ?? throw new ArgumentNullException(nameof(printedCircuitBoard3DViewModel));
 
             Sensors = new();
-
-            OnLoadedCommand = new RelayCommand(OnLoaded);
-            OnUnloadedCommand = new RelayCommand(OnUnloaded);
         }
 
         #endregion
@@ -79,7 +68,11 @@ namespace SensorCalibrationSystem.ViewModels
             }
         }
 
-        private void OnLoaded()
+        #endregion
+
+        #region Navigation Methods
+
+        public void OnNavigatedTo()
         {
             if (!HasBeenLoaded)
             {
@@ -87,11 +80,13 @@ namespace SensorCalibrationSystem.ViewModels
 
                 HasBeenLoaded = true;
             }
+
+            PrintedCircuitBoard3DViewModel.Load();
         }
 
-        private void OnUnloaded()
+        public void OnNavigatedFrom()
         {
-
+            PrintedCircuitBoard3DViewModel.Unload();
         }
 
         #endregion

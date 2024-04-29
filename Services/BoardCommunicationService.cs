@@ -53,5 +53,14 @@ namespace SensorCalibrationSystem.Services
                 serialPort.Dispose();
             }
         }
+
+        /// <inheritdoc />
+        public void WriteLine(string message)
+        {
+            if (serialPort.IsOpen)
+            {
+                serialPort.WriteLine(message);
+            }
+        }
     }
 }

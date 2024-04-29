@@ -22,5 +22,11 @@ namespace SensorCalibrationSystem.Contracts
         /// Disconnects from the board.
         /// </summary>
         void Disconnect();
+
+        /// <summary>
+        /// Writes a line with the message.
+        /// </summary>
+        /// <param name="message">The message to be sent out.</param>
+        void WriteLine(string message);
     }
 }

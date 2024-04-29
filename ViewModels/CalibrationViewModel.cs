@@ -15,5 +15,17 @@ namespace SensorCalibrationSystem.ViewModels
         public bool IsActive { get; set; }
 
         #endregion
+
+        #region Navigation Methods
+
+        public void OnNavigatedTo()
+        {
+        }
+
+        public void OnNavigatedFrom()
+        {
+        }
+
+        #endregion
     }
 }

@@ -24,5 +24,15 @@
         /// Gets or sets whether the page is active.
         /// </summary>
         bool IsActive { get; set; }
+
+        /// <summary>
+        /// Executes when the page is navigated to.
+        /// </summary>
+        void OnNavigatedTo();
+
+        /// <summary>
+        /// Executes when the page is navigated from.
+        /// </summary>
+        void OnNavigatedFrom();
     }
 }

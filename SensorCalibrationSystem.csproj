@@ -25,6 +25,11 @@
     <None Remove="Resources\hardware-setup.png" />
     <None Remove="Resources\information-icon.png" />
     <None Remove="Resources\memory-map.png" />
+    <None Remove="Resources\sensor-calibration-system.ino" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\sensor-calibration-system.ino" />
   </ItemGroup>
 
   <ItemGroup>
