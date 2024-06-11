@@ -8,5 +8,81 @@
 	d:DesignHeight="450"
 	d:DesignWidth="800"
 	mc:Ignorable="d">
-	<Grid />
+	<Grid>
+		<TabControl
+			BorderThickness="0"
+			ItemsSource="{Binding MemoryMaps, UpdateSourceTrigger=PropertyChanged}"
+			SelectedIndex="0"
+			Style="{StaticResource MemoryMapTabControlStyle}"
+			TabStripPlacement="Bottom">
+			<TabControl.ContentTemplate>
+				<DataTemplate>
+					<DataGrid
+						AutoGenerateColumns="False"
+						BorderThickness="0"
+						CanUserAddRows="False"
+						CanUserDeleteRows="False"
+						CanUserReorderColumns="False"
+						CanUserResizeColumns="False"
+						CanUserResizeRows="False"
+						CanUserSortColumns="False"
+						FocusVisualStyle="{x:Null}"
+						GridLinesVisibility="Horizontal"
+						HeadersVisibility="Column"
+						HorizontalGridLinesBrush="DarkGray"
+						HorizontalScrollBarVisibility="Auto"
+						ItemsSource="{Binding Registers}"
+						VerticalScrollBarVisibility="Auto">
+						<DataGrid.ColumnHeaderStyle>
+							<Style TargetType="DataGridColumnHeader">
+								<Setter Property="Background" Value="SteelBlue" />
+								<Setter Property="Foreground" Value="White" />
+							</Style>
+						</DataGrid.ColumnHeaderStyle>
+						<DataGrid.Columns>
+							<DataGridTextColumn
+								Width="Auto"
+								Binding="{Binding Name}"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								Header="Register"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
+								IsReadOnly="True" />
+							<DataGridTemplateColumn
+								Width="200"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								Header="Description"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
+								IsReadOnly="True">
+								<DataGridTemplateColumn.CellTemplate>
+									<DataTemplate DataType="DataGridTemplateColumn">
+										<TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+									</DataTemplate>
+								</DataGridTemplateColumn.CellTemplate>
+							</DataGridTemplateColumn>
+							<DataGridTextColumn
+								Width="Auto"
+								Binding="{Binding Address}"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								Header="Address"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
+								IsReadOnly="True" />
+							<DataGridTextColumn
+								Width="Auto"
+								Binding="{Binding Access}"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								Header="Access"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
+								IsReadOnly="True" />
+							<DataGridTemplateColumn
+								Width="Auto"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								CellTemplate="{DynamicResource MemoryMapValueColumnDataTemplate}"
+								Header="Value"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}" />
+						</DataGrid.Columns>
+					</DataGrid>
+				</DataTemplate>
+			</TabControl.ContentTemplate>
+		</TabControl>
+	</Grid>
 </Page>

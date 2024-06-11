@@ -118,4 +118,12 @@
 		</Border>
 	</DataTemplate>
 
+	<DataTemplate x:Key="MemoryMapValueColumnDataTemplate" DataType="DataGridTemplateColumn">
+		<TextBox
+			Padding="10,0"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Top"
+			Style="{StaticResource MemoryMapValueTextBoxStyle}" />
+	</DataTemplate>
+
 </ResourceDictionary>

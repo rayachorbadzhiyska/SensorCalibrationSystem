@@ -120,4 +120,125 @@
 		<Setter Property="Template" Value="{StaticResource SensorInformationTemplate}" />
 	</Style>
 
+	<Style x:Key="MemoryMapTabControlStyle" TargetType="TabControl">
+		<Setter Property="ItemContainerStyle">
+			<Setter.Value>
+				<Style TargetType="TabItem">
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="TabItem">
+								<Border
+									Name="Border"
+									Margin="2,0"
+									BorderBrush="Gainsboro"
+									BorderThickness="1,0,1,1"
+									CornerRadius="0,0,4,4">
+									<ContentPresenter
+										x:Name="ContentSite"
+										Margin="12,4"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Content="{Binding Sensor}" />
+								</Border>
+								<ControlTemplate.Triggers>
+									<Trigger Property="IsSelected" Value="True">
+										<Setter TargetName="Border" Property="Background" Value="White" />
+									</Trigger>
+									<MultiTrigger>
+										<MultiTrigger.Conditions>
+											<Condition Property="IsSelected" Value="False" />
+											<Condition Property="IsMouseOver" Value="False" />
+										</MultiTrigger.Conditions>
+										<MultiTrigger.Setters>
+											<Setter TargetName="Border" Property="Background" Value="#f4f4f4" />
+										</MultiTrigger.Setters>
+									</MultiTrigger>
+									<MultiTrigger>
+										<MultiTrigger.Conditions>
+											<Condition Property="IsSelected" Value="False" />
+											<Condition Property="IsMouseOver" Value="True" />
+										</MultiTrigger.Conditions>
+										<MultiTrigger.Setters>
+											<Setter TargetName="Border" Property="Background" Value="#dddddd" />
+										</MultiTrigger.Setters>
+									</MultiTrigger>
+								</ControlTemplate.Triggers>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="MemoryMapColumnStyle" TargetType="DataGridCell">
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="FontWeight" Value="Normal" />
+		<Setter Property="FontFamily" Value="Office Sans" />
+		<Setter Property="Background" Value="Transparent" />
+		<Style.Triggers>
+			<Trigger Property="IsSelected" Value="True">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="BorderBrush" Value="Transparent" />
+				<Setter Property="Foreground" Value="Black" />
+			</Trigger>
+			<DataTrigger Binding="{Binding Access}" Value="read-only">
+				<Setter Property="Foreground" Value="Black" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Access}" Value="read-write">
+				<Setter Property="Foreground" Value="DarkGreen" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Access}" Value="write-only">
+				<Setter Property="Foreground" Value="DarkBlue" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+
+	<Style x:Key="MemoryMapColumnHeaderStyle" TargetType="DataGridColumnHeader">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="DataGridColumnHeader">
+					<ContentPresenter
+						Margin="10"
+						HorizontalAlignment="Left"
+						TextBlock.FontWeight="SemiBold"
+						TextBlock.Foreground="White" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="MemoryMapRowStyle" TargetType="DataGridRow">
+		<Style.Triggers>
+			<Trigger Property="IsSelected" Value="True">
+				<Setter Property="Background" Value="#d3eaf2" />
+			</Trigger>
+			<Trigger Property="IsSelected" Value="False">
+				<Setter Property="Background" Value="Transparent" />
+			</Trigger>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Background" Value="#e9f5f9" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+	<Style x:Key="MemoryMapValueTextBoxStyle" TargetType="TextBox">
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding Access}" Value="read-only">
+				<Setter Property="BorderThickness" Value="0" />
+				<Setter Property="IsReadOnly" Value="True" />
+				<Setter Property="Text" Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Access}" Value="read-write">
+				<Setter Property="BorderThickness" Value="0,0,0,1" />
+				<Setter Property="Text" Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Access}" Value="write-only">
+				<Setter Property="BorderThickness" Value="0,0,0,1" />
+				<Setter Property="Text" Value="" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+
 </ResourceDictionary>
