@@ -124,7 +124,48 @@
 			HorizontalAlignment="Center"
 			VerticalAlignment="Top"
 			Background="Transparent"
+			Foreground="White"
 			Style="{StaticResource MemoryMapValueTextBoxStyle}" />
+	</DataTemplate>
+
+	<DataTemplate x:Key="MemoryMapActionColumnDataTemplate" DataType="DataGridTemplateColumn">
+		<StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+			<Button
+				x:Name="ReadButton"
+				Padding="10,5"
+				Background="PeachPuff"
+				Content="READ"
+				FontWeight="SemiBold">
+				<Button.Resources>
+					<Style TargetType="Border">
+						<Setter Property="CornerRadius" Value="5" />
+						<Setter Property="BorderBrush" Value="DarkGray" />
+					</Style>
+				</Button.Resources>
+			</Button>
+			<Button
+				x:Name="WriteButton"
+				Margin="5,0,0,0"
+				Padding="10,5"
+				Background="CornflowerBlue"
+				Content="WRITE"
+				FontWeight="SemiBold">
+				<Button.Resources>
+					<Style TargetType="Border">
+						<Setter Property="CornerRadius" Value="5" />
+						<Setter Property="BorderBrush" Value="DarkGray" />
+					</Style>
+				</Button.Resources>
+			</Button>
+		</StackPanel>
+		<DataTemplate.Triggers>
+			<DataTrigger Binding="{Binding Access}" Value="read-only">
+				<Setter TargetName="WriteButton" Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Access}" Value="write-only">
+				<Setter TargetName="ReadButton" Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+		</DataTemplate.Triggers>
 	</DataTemplate>
 
 </ResourceDictionary>

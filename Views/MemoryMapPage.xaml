@@ -83,6 +83,12 @@
 								CellTemplate="{DynamicResource MemoryMapValueColumnDataTemplate}"
 								Header="Value"
 								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}" />
+							<DataGridTemplateColumn
+								Width="Auto"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								CellTemplate="{DynamicResource MemoryMapActionColumnDataTemplate}"
+								Header=""
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}" />
 						</DataGrid.Columns>
 					</DataGrid>
 				</DataTemplate>

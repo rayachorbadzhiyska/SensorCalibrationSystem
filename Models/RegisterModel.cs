@@ -29,5 +29,14 @@
         /// Gets or sets the register's value.
         /// </summary>
         public string Value { get; set; }
+
+        public RegisterModel(string name, string description, string address, string access)
+        {
+            Name = name;
+            Description = description;
+            Address = address;
+            Access = access;
+            Value = "0";
+        }
     }
 }
