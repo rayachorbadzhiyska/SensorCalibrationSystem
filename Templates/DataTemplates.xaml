@@ -123,6 +123,7 @@
 			Padding="10,0"
 			HorizontalAlignment="Center"
 			VerticalAlignment="Top"
+			Background="Transparent"
 			Style="{StaticResource MemoryMapValueTextBoxStyle}" />
 	</DataTemplate>
 

@@ -8,6 +8,7 @@ void setup() {
   Serial.begin(115200);
   while(!Serial);
 
+  Wire.begin();
   BHY2.begin();
 }
 
@@ -53,6 +54,28 @@ void stopQuaternionValuesStreaming() {
   areQuaternionValuesStreaming = false;
 
   rotation.end();
+}
+
+void writeRegister(byte deviceAddress, byte registerAddress, byte data) {
+  Wire.beginTransmission(deviceAddress);
+  Wire.write(registerAddress);
+  Wire.write(data);
+  Wire.endTransmission();
+}
+
+byte readRegister(byte deviceAddress, byte registerAddress) {
+  byte data = 0; // Variable to store the read data
+
+  Wire.beginTransmission(deviceAddress);
+  Wire.write(registerAddress);
+  Wire.endTransmission();
+
+  Wire.requestFrom(deviceAddress, 1); // Request 1 byte of data
+  if (Wire.available()) {
+    data = Wire.read(); // Read the data from the register
+  }
+
+  return data;
 }
 
 void loop() {

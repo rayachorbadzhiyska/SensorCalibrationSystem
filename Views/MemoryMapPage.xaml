@@ -14,11 +14,13 @@
 			ItemsSource="{Binding MemoryMaps, UpdateSourceTrigger=PropertyChanged}"
 			SelectedIndex="0"
 			Style="{StaticResource MemoryMapTabControlStyle}"
-			TabStripPlacement="Bottom">
+			TabStripPlacement="Top">
 			<TabControl.ContentTemplate>
 				<DataTemplate>
 					<DataGrid
+						Padding="10"
 						AutoGenerateColumns="False"
+						Background="#191919"
 						BorderThickness="0"
 						CanUserAddRows="False"
 						CanUserDeleteRows="False"
@@ -29,14 +31,16 @@
 						FocusVisualStyle="{x:Null}"
 						GridLinesVisibility="Horizontal"
 						HeadersVisibility="Column"
-						HorizontalGridLinesBrush="DarkGray"
+						HorizontalGridLinesBrush="#464646"
 						HorizontalScrollBarVisibility="Auto"
 						ItemsSource="{Binding Registers}"
+						RowBackground="#191919"
 						VerticalScrollBarVisibility="Auto">
 						<DataGrid.ColumnHeaderStyle>
 							<Style TargetType="DataGridColumnHeader">
-								<Setter Property="Background" Value="SteelBlue" />
-								<Setter Property="Foreground" Value="White" />
+								<Setter Property="Background" Value="#191919" />
+								<Setter Property="BorderThickness" Value="0,0,0,1" />
+								<Setter Property="BorderBrush" Value="#464646" />
 							</Style>
 						</DataGrid.ColumnHeaderStyle>
 						<DataGrid.Columns>

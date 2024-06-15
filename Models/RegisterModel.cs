@@ -28,6 +28,6 @@
         /// <summary>
         /// Gets or sets the register's value.
         /// </summary>
-        public int Value { get; set; }
+        public string Value { get; set; }
     }
 }
