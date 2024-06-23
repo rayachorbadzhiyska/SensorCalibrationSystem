@@ -12,7 +12,7 @@
 		<TabControl
 			BorderThickness="0"
 			ItemsSource="{Binding MemoryMaps, UpdateSourceTrigger=PropertyChanged}"
-			SelectedIndex="0"
+			SelectedItem="{Binding SelectedMemoryMap}"
 			Style="{StaticResource MemoryMapTabControlStyle}"
 			TabStripPlacement="Top">
 			<TabControl.ContentTemplate>
@@ -68,6 +68,13 @@
 								Binding="{Binding Address}"
 								CellStyle="{StaticResource MemoryMapColumnStyle}"
 								Header="Address"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
+								IsReadOnly="True" />
+							<DataGridTextColumn
+								Width="Auto"
+								Binding="{Binding Size}"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								Header="Size"
 								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
 								IsReadOnly="True" />
 							<DataGridTextColumn

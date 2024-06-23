@@ -1,7 +1,9 @@
-﻿using SensorCalibrationSystem.Contracts;
+﻿using CommunityToolkit.Mvvm.Input;
+using SensorCalibrationSystem.Contracts;
 using SensorCalibrationSystem.Models;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace SensorCalibrationSystem.ViewModels
@@ -26,18 +28,35 @@ namespace SensorCalibrationSystem.ViewModels
 
         private readonly string sensorMemoryMapDataPath = @"memory-maps";
 
+        private readonly IBoardCommunicationService boardCommunicationService;
+
         #endregion
 
         #region Properties
 
         public ObservableCollection<MemoryMapModel> MemoryMaps { get; set; }
 
+        public MemoryMapModel SelectedMemoryMap { get; set; }
+
+        #endregion
+
+        #region Commands
+
+        public IRelayCommand<RegisterModel> ReadRegisterCommand { get; }
+
+        public IRelayCommand<RegisterModel> WriteRegisterCommand { get; }
+
         #endregion
 
         #region Constructor
 
-        public MemoryMapViewModel()
+        public MemoryMapViewModel(IBoardCommunicationService boardCommunicationService)
         {
+            this.boardCommunicationService = boardCommunicationService;
+
+            ReadRegisterCommand = new RelayCommand<RegisterModel>(ReadRegister);
+            WriteRegisterCommand = new RelayCommand<RegisterModel>(WriteRegister);
+
             MemoryMaps = new ObservableCollection<MemoryMapModel>();
         }
 
@@ -62,6 +81,49 @@ namespace SensorCalibrationSystem.ViewModels
             }
         }
 
+        private void BoardCommunicationService_SerialDataReceived(object? sender, string e)
+        {
+            if (e.StartsWith("Register READ"))
+            {
+                string[] data = e.Split(new char[] { ' ', ':' }, System.StringSplitOptions.RemoveEmptyEntries); // e.g. Register READ 0x2B: 255
+                if (data.Length == 4)
+                {
+                    string regAddress = data[2];
+                    int regValue = int.Parse(data[3]);
+
+                    if (SelectedMemoryMap.Registers.Exists(x => x.Address == regAddress))
+                    {
+                        SelectedMemoryMap.Registers.First(x => x.Address == regAddress).Value = regValue.ToString();
+
+                        RefreshSelectedMemoryMap();
+                    }
+                }
+            }
+        }
+
+        private void ReadRegister(RegisterModel register)
+        {
+            if (register is RegisterModel)
+            {
+                boardCommunicationService.WriteLine($"READ {register.Address}");
+            }
+        }
+
+        private void WriteRegister(RegisterModel register)
+        {
+            if (register is RegisterModel)
+            {
+                boardCommunicationService.WriteLine($"WRITE {register.Address} {register.Value}");
+            }
+        }
+
+        private void RefreshSelectedMemoryMap()
+        {
+            var temp = SelectedMemoryMap;
+            SelectedMemoryMap = null;
+            SelectedMemoryMap = temp;
+        }
+
         #endregion
 
         #region Navigation Methods
@@ -72,12 +134,17 @@ namespace SensorCalibrationSystem.ViewModels
             {
                 LoadMemoryMapData();
 
+                SelectedMemoryMap = MemoryMaps.FirstOrDefault();
+
                 HasBeenLoaded = true;
             }
+
+            boardCommunicationService.SerialDataReceived += BoardCommunicationService_SerialDataReceived;
         }
 
         public void OnNavigatedFrom()
         {
+            boardCommunicationService.SerialDataReceived -= BoardCommunicationService_SerialDataReceived;
         }
 
         #endregion

@@ -6,163 +6,190 @@
 			"Address": "0x00",
 			"Name": "Host Channel 0 - Command Input",
 			"Description": "The host can write command packets to this DMA channel (input)",
-			"Access": "write-only"
+			"Access": "write-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x01",
 			"Name": "Host Channel 1 - Wake-up FIFO Output",
 			"Description": "The host can read the virtual sensor data generated and stored in the wake-up FIFO through this DMA channel (output)",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x02",
 			"Name": "Host Channel 2 - Non-wake-up FIFO Output",
 			"Description": "The host can read the virtual sensor data generated and stored in the Non-wake-up FIFO through this DMA channel (output)",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x05",
 			"Name": "Chip Control",
 			"Description": "Control fundamental behavior of Fuser2 Core, like the firmware upload speed or clearing the error and debug registers",
-			"Access": "read-write"
+			"Access": "read-write",
+			"Size": 8
 		},
 		{
 			"Address": "0x06",
 			"Name": "Host Interface Control",
 			"Description": "Control various actions regarding the host interface",
-			"Access": "read-write"
+			"Access": "read-write",
+			"Size": 8
 		},
 		{
 			"Address": "0x07",
 			"Name": "Host Interrupt Control",
 			"Description": "Control characteristics of host interrupt, mask interrupt sources",
-			"Access": "read-write"
+			"Access": "read-write",
+			"Size": 8
 		},
 		{
 			"Address": "0x08-0x13",
 			"Name": "WGP1 - WGP3 - General Purpose Host Writeable",
 			"Description": "General-purpose registers for communication from the host to the Fuser2 Core. While the host can read/write these registers, the BHI260 ARC CPU has read access only",
-			"Access": "read-write"
+			"Access": "read-write",
+			"Size": 48
 		},
 		{
 			"Address": "0x14",
 			"Name": "Reset Request",
 			"Description": "Host-controlled reset of Fuser2 Core",
-			"Access": "read-write"
+			"Access": "read-write",
+			"Size": 8
 		},
 		{
 			"Address": "0x15",
 			"Name": "Timestamp Event Request",
 			"Description": "The host can trigger an event interrupt (with timestamp response)",
-			"Access": "read-write"
+			"Access": "read-write",
+			"Size": 8
 		},
 		{
 			"Address": "0x16",
 			"Name": "Host Control",
 			"Description": "Control the SPI mode and the I2C watchdog behavior of the BHI260AP",
-			"Access": "read-write"
+			"Access": "read-write",
+			"Size": 8
 		},
 		{
 			"Address": "0x17",
 			"Name": "Host Status",
 			"Description": "Checks the power status of the chip, the selected host protocol, and DMA channels",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x18-0x1B",
-			"Name": "Host Channel CRC (32 bits)",
+			"Name": "Host Channel CRC",
 			"Description": "Get CRC of the last used DMA channel",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 32
 		},
 		{
 			"Address": "0x1C",
 			"Name": "Fuser2 Product Identifier",
 			"Description": "This register identifies the Fuser2 core. It reads 0x89 of BHI260AP",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x1D",
 			"Name": "Fuser2 Revision Identifier",
 			"Description": "Hardware revision of the Fuser2 core. It reads 0x02 or 0x03 for the BHI260AP",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x1E-0X1F",
 			"Name": "ROM Version",
 			"Description": "ROM Image revision",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 16
 		},
 		{
 			"Address": "0x20-0x21",
 			"Name": "Kernel Version",
 			"Description": "Firmware Kernel image revision",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 16
 		},
 		{
 			"Address": "0x22-0x23",
 			"Name": "User Version",
 			"Description": "Firmware User image revision",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 16
 		},
 		{
 			"Address": "0x24",
 			"Name": "Feature Status",
 			"Description": "Get status of various firmware-related features",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x25",
 			"Name": "Boot Status",
 			"Description": "Get status of boot loader",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x26-0x2A",
-			"Name": "Host Interrupt Timestamp (40 bits)",
+			"Name": "Host Interrupt Timestamp",
 			"Description": "Get timestamp of last host interrupt or Timestamp Event Request",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 40
 		},
 		{
 			"Address": "0x2B",
 			"Name": "Chip ID",
 			"Description": "Product specific identifier. For BHI260AP it reads 0x70 or 0xF0",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x2D",
 			"Name": "Interrupt Status",
 			"Description": "Get current status of interrupt sources",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x2E",
 			"Name": "Error Value",
 			"Description": "Firmware-related error code",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x2F",
 			"Name": "Error Aux",
 			"Description": "Auxiliary information for firmware related error",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x30",
 			"Name": "Debug Value",
 			"Description": "Firmware-related debug value",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x31",
 			"Name": "Debug State",
 			"Description": "Firmware-related debug state",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 8
 		},
 		{
 			"Address": "0x32-0x3D",
 			"Name": "(RGP5-RGP7) - General-Purpose Host Readable",
 			"Description": "General-purpose registers for communication from the Fuser2 Core to the host: while the BHI260AP ARC processor can read/write these registers, the host has read access only",
-			"Access": "read-only"
+			"Access": "read-only",
+			"Size": 48
 		}
 	]
 }

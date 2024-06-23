@@ -20,6 +20,6 @@ namespace SensorCalibrationSystem.Models
         /// <summary>
         /// Gets or sets the memory map's registers.
         /// </summary>
-        public IEnumerable<RegisterModel> Registers { get; set; }
+        public List<RegisterModel> Registers { get; set; }
     }
 }

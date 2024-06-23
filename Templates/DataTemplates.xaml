@@ -134,6 +134,8 @@
 				x:Name="ReadButton"
 				Padding="10,5"
 				Background="PeachPuff"
+				Command="{Binding DataContext.ReadRegisterCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+				CommandParameter="{Binding}"
 				Content="READ"
 				FontWeight="SemiBold">
 				<Button.Resources>
@@ -148,6 +150,8 @@
 				Margin="5,0,0,0"
 				Padding="10,5"
 				Background="CornflowerBlue"
+				Command="{Binding DataContext.WriteRegisterCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+				CommandParameter="{Binding}"
 				Content="WRITE"
 				FontWeight="SemiBold">
 				<Button.Resources>

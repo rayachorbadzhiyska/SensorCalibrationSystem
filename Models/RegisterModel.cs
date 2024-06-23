@@ -21,6 +21,11 @@
         public string Address { get; set; }
 
         /// <summary>
+        /// Gets or sets the register's size in bits.
+        /// </summary>
+        public int Size { get; set; }
+
+        /// <summary>
         /// Gets or sets the register's access.
         /// </summary>
         public string Access { get; set; }

@@ -55,6 +55,17 @@ namespace SensorCalibrationSystem.Services
         }
 
         /// <inheritdoc />
+        public string ReadLine()
+        {
+            if (serialPort.IsOpen)
+            {
+                return serialPort.ReadLine();
+            }
+
+            return string.Empty;
+        }
+
+        /// <inheritdoc />
         public void WriteLine(string message)
         {
             if (serialPort.IsOpen)

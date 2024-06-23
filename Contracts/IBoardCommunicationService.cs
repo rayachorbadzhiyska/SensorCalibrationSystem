@@ -24,6 +24,11 @@ namespace SensorCalibrationSystem.Contracts
         void Disconnect();
 
         /// <summary>
+        /// Reads a single line.
+        /// </summary>
+        string ReadLine();
+
+        /// <summary>
         /// Writes a line with the message.
         /// </summary>
         /// <param name="message">The message to be sent out.</param>
