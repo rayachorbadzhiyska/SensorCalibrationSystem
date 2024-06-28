@@ -5,20 +5,29 @@
 SensorQuaternion rotation(SENSOR_ID_RV);
 
 #define CS_PIN P0_29
+#define CLOCK_PIN P0_11
+#define CIPO_PIN P0_28  // P0_28 for MISO (Arduino CIPO)
+#define COPI_PIN P0_27  // P0_27 for MOSI (Arduino COPI)
 
 const byte numChars = 64;
 char receivedChars[numChars];  
 
 void setup() {
-  // Initialize serial
-  Serial.begin(115200);
-  while(!Serial);
-
   // Initialize BHI260AP
   BHY2.begin();
 
-  SPI.begin();
   pinMode(CS_PIN, OUTPUT);
+  pinMode(CLOCK_PIN, OUTPUT);
+  pinMode(CIPO_PIN, INPUT);
+  pinMode(COPI_PIN, OUTPUT);
+
+  SPI.begin();
+
+  digitalWrite(CS_PIN, HIGH); // Ensure CS is initially high (deselected)
+
+  // Initialize serial
+  Serial.begin(115200);
+  while(!Serial);
 }
 
 bool areQuaternionValuesStreaming = false;
@@ -70,10 +79,26 @@ void writeRegister(uint8_t reg, uint8_t value) {
 }
 
 uint8_t readRegister(uint8_t reg) {
+  SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
+
   digitalWrite(CS_PIN, LOW); // Select the device by setting CS low
+  
+   // Debugging: Print the register address being sent
+  Serial.print("Sending register address: 0x");
+  Serial.println(reg | 0x80, HEX);
+
   SPI.transfer(reg | 0x80); // Send register address with read command (MSB set to 1)
+
   uint8_t data = SPI.transfer(0x00); // Read the data from register
+  
+   // Debugging: Print the data received
+  Serial.print("Received data: 0x");
+  Serial.println(data, HEX);
+
   digitalWrite(CS_PIN, HIGH); // Deselect the device by setting CS high
+
+  SPI.endTransaction();
+
   return data;
 }
 

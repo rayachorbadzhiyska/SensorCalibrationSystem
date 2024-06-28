@@ -1,14 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using SensorCalibrationSystem.Contracts;
 using SensorCalibrationSystem.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace SensorCalibrationSystem.ViewModels
 {
-    public class MemoryMapViewModel : INavigationPage, IReloadable
+    public class MemoryMapViewModel : INavigationPage, IReloadable, INotifyPropertyChanged
     {
         #region Properties Interfaces
 
@@ -29,6 +32,8 @@ namespace SensorCalibrationSystem.ViewModels
         private readonly string sensorMemoryMapDataPath = @"memory-maps";
 
         private readonly IBoardCommunicationService boardCommunicationService;
+        private MemoryMapModel selectedMemoryMap;
+        private string selectedValueFormat;
 
         #endregion
 
@@ -36,7 +41,32 @@ namespace SensorCalibrationSystem.ViewModels
 
         public ObservableCollection<MemoryMapModel> MemoryMaps { get; set; }
 
-        public MemoryMapModel SelectedMemoryMap { get; set; }
+        public MemoryMapModel SelectedMemoryMap
+        {
+            get => selectedMemoryMap;
+            set
+            {
+                selectedMemoryMap = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<string> ValueFormats { get; } = new List<string>
+        {
+            "Decimal",
+            "Hex",
+            "Binary"
+        };
+
+        public string SelectedValueFormat
+        {
+            get => selectedValueFormat;
+            set
+            {
+                selectedValueFormat = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -135,6 +165,7 @@ namespace SensorCalibrationSystem.ViewModels
                 LoadMemoryMapData();
 
                 SelectedMemoryMap = MemoryMaps.FirstOrDefault();
+                SelectedValueFormat = ValueFormats.First();
 
                 HasBeenLoaded = true;
             }
@@ -145,6 +176,17 @@ namespace SensorCalibrationSystem.ViewModels
         public void OnNavigatedFrom()
         {
             boardCommunicationService.SerialDataReceived -= BoardCommunicationService_SerialDataReceived;
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         #endregion

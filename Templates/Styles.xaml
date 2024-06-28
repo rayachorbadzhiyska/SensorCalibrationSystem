@@ -1,4 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="clr-namespace:SensorCalibrationSystem.Converters">
 
 	<Style x:Key="ConfigureButtonStyle" TargetType="Button">
 		<Setter Property="Cursor" Value="Hand" />
@@ -201,6 +204,26 @@
 		</Setter>
 	</Style>
 
+	<Style x:Key="MemoryMapValueColumnHeaderStyle" TargetType="DataGridColumnHeader">
+		<Setter Property="HorizontalAlignment" Value="Center" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="DataGridColumnHeader">
+					<StackPanel Orientation="Horizontal">
+						<ComboBox
+							ItemsSource="{Binding DataContext.ValueFormats, RelativeSource={RelativeSource AncestorType=Page}}"
+							SelectedItem="{Binding DataContext.SelectedValueFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Page}}" />
+						<Label
+							Margin="5,0,0,5"
+							Content="Value"
+							FontWeight="SemiBold"
+							Foreground="SteelBlue" />
+					</StackPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style x:Key="MemoryMapRowStyle" TargetType="DataGridRow">
 		<Style.Triggers>
 			<Trigger Property="IsSelected" Value="True">
@@ -216,15 +239,46 @@
 	</Style>
 
 	<Style x:Key="MemoryMapValueTextBoxStyle" TargetType="TextBox">
+		<Style.Resources>
+			<converters:ValueFormatConverter x:Key="ValueFormatConverter" />
+		</Style.Resources>
 		<Style.Triggers>
 			<DataTrigger Binding="{Binding Access}" Value="read-only">
 				<Setter Property="BorderThickness" Value="0" />
 				<Setter Property="IsReadOnly" Value="True" />
-				<Setter Property="Text" Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				<Setter Property="Text">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource ValueFormatConverter}">
+							<Binding
+								Path="DataContext.SelectedValueFormat"
+								RelativeSource="{RelativeSource AncestorType=Page}"
+								UpdateSourceTrigger="PropertyChanged" />
+							<Binding
+								Mode="TwoWay"
+								Path="Value"
+								UpdateSourceTrigger="PropertyChanged" />
+							<Binding Path="Size" UpdateSourceTrigger="PropertyChanged" />
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding Access}" Value="read-write">
 				<Setter Property="BorderThickness" Value="0,0,0,1" />
-				<Setter Property="Text" Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				<Setter Property="Text">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource ValueFormatConverter}">
+							<Binding
+								Path="DataContext.SelectedValueFormat"
+								RelativeSource="{RelativeSource AncestorType=Page}"
+								UpdateSourceTrigger="PropertyChanged" />
+							<Binding
+								Mode="TwoWay"
+								Path="Value"
+								UpdateSourceTrigger="PropertyChanged" />
+							<Binding Path="Size" UpdateSourceTrigger="PropertyChanged" />
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding Access}" Value="write-only">
 				<Setter Property="BorderThickness" Value="0,0,0,1" />
