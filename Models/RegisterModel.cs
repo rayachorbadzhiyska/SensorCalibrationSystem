@@ -1,10 +1,14 @@
-﻿namespace SensorCalibrationSystem.Models
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace SensorCalibrationSystem.Models
 {
     /// <summary>
     /// Represents a memory map register.
     /// </summary>
-    public class RegisterModel
+    public class RegisterModel : ObservableObject
     {
+        private string value;
+
         /// <summary>
         /// Gets or sets the register's name.
         /// </summary>
@@ -33,7 +37,11 @@
         /// <summary>
         /// Gets or sets the register's value.
         /// </summary>
-        public string Value { get; set; }
+        public string Value
+        {
+            get => value;
+            set => SetProperty(ref this.value, value);
+        }
 
         public RegisterModel(string name, string description, string address, string access)
         {

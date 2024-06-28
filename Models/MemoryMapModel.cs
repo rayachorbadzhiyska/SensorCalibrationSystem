@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
 namespace SensorCalibrationSystem.Models
 {
@@ -20,6 +20,6 @@ namespace SensorCalibrationSystem.Models
         /// <summary>
         /// Gets or sets the memory map's registers.
         /// </summary>
-        public List<RegisterModel> Registers { get; set; }
+        public ObservableCollection<RegisterModel> Registers { get; set; }
     }
 }

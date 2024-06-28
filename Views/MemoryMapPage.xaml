@@ -33,6 +33,7 @@
 						HeadersVisibility="Column"
 						HorizontalGridLinesBrush="#464646"
 						HorizontalScrollBarVisibility="Auto"
+						IsSynchronizedWithCurrentItem="True"
 						ItemsSource="{Binding Registers}"
 						RowBackground="#191919"
 						VerticalScrollBarVisibility="Auto">

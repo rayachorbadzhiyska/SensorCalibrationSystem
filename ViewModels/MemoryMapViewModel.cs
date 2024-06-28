@@ -113,19 +113,17 @@ namespace SensorCalibrationSystem.ViewModels
 
         private void BoardCommunicationService_SerialDataReceived(object? sender, string e)
         {
-            if (e.StartsWith("Register READ"))
+            if (e.StartsWith("OK Register READ"))
             {
-                string[] data = e.Split(new char[] { ' ', ':' }, System.StringSplitOptions.RemoveEmptyEntries); // e.g. Register READ 0x2B: 255
-                if (data.Length == 4)
+                string[] data = e.Split(new char[] { ' ', ':' }, System.StringSplitOptions.RemoveEmptyEntries); // e.g. OK Register READ 0x2B: 255
+                if (data.Length == 5)
                 {
-                    string regAddress = data[2];
-                    int regValue = int.Parse(data[3]);
+                    string regAddress = data[3];
+                    int regValue = int.Parse(data[4]);
 
-                    if (SelectedMemoryMap.Registers.Exists(x => x.Address == regAddress))
+                    if (SelectedMemoryMap.Registers.Any(x => x.Address == regAddress))
                     {
                         SelectedMemoryMap.Registers.First(x => x.Address == regAddress).Value = regValue.ToString();
-
-                        RefreshSelectedMemoryMap();
                     }
                 }
             }
@@ -145,13 +143,6 @@ namespace SensorCalibrationSystem.ViewModels
             {
                 boardCommunicationService.WriteLine($"WRITE {register.Address} {register.Value}");
             }
-        }
-
-        private void RefreshSelectedMemoryMap()
-        {
-            var temp = SelectedMemoryMap;
-            SelectedMemoryMap = null;
-            SelectedMemoryMap = temp;
         }
 
         #endregion

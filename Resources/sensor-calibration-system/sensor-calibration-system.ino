@@ -1,13 +1,8 @@
 #include "Arduino.h"
 #include "Arduino_BHY2.h"
-#include <SPI.h>
+#include "bosch/common/common.h"
 
 SensorQuaternion rotation(SENSOR_ID_RV);
-
-#define CS_PIN P0_29
-#define CLOCK_PIN P0_11
-#define CIPO_PIN P0_28  // P0_28 for MISO (Arduino CIPO)
-#define COPI_PIN P0_27  // P0_27 for MOSI (Arduino COPI)
 
 const byte numChars = 64;
 char receivedChars[numChars];  
@@ -15,15 +10,6 @@ char receivedChars[numChars];
 void setup() {
   // Initialize BHI260AP
   BHY2.begin();
-
-  pinMode(CS_PIN, OUTPUT);
-  pinMode(CLOCK_PIN, OUTPUT);
-  pinMode(CIPO_PIN, INPUT);
-  pinMode(COPI_PIN, OUTPUT);
-
-  SPI.begin();
-
-  digitalWrite(CS_PIN, HIGH); // Ensure CS is initially high (deselected)
 
   // Initialize serial
   Serial.begin(115200);
@@ -72,34 +58,35 @@ void stopQuaternionValuesStreaming() {
 }
 
 void writeRegister(uint8_t reg, uint8_t value) {
-  digitalWrite(CS_PIN, LOW); // Select the device by setting CS low
-  SPI.transfer(reg & 0x7F); // Send register address with write command (MSB set to 0)
-  SPI.transfer(value); // Write the data to register
-  digitalWrite(CS_PIN, HIGH); // Deselect the device by setting CS high
+  if (bhy2_spi_write(reg & 0x7F, &value, 1, nullptr) == 0) {
+    Serial.print("OK Register WRITE ");
+    Serial.print("0x");
+    Serial.print(reg, HEX);
+    Serial.print(": ");
+    Serial.println(value);
+  } else {
+    Serial.print("ERROR Register WRITE ");
+    Serial.print("0x");
+    Serial.print(reg, HEX);
+    Serial.print(": ");
+    Serial.println(value);
+  }
 }
 
-uint8_t readRegister(uint8_t reg) {
-  SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE3));
+void readRegister(uint8_t reg) {
+  uint8_t data = 0;
 
-  digitalWrite(CS_PIN, LOW); // Select the device by setting CS low
-  
-   // Debugging: Print the register address being sent
-  Serial.print("Sending register address: 0x");
-  Serial.println(reg | 0x80, HEX);
-
-  SPI.transfer(reg | 0x80); // Send register address with read command (MSB set to 1)
-
-  uint8_t data = SPI.transfer(0x00); // Read the data from register
-  
-   // Debugging: Print the data received
-  Serial.print("Received data: 0x");
-  Serial.println(data, HEX);
-
-  digitalWrite(CS_PIN, HIGH); // Deselect the device by setting CS high
-
-  SPI.endTransaction();
-
-  return data;
+  if (bhy2_spi_read(reg | 0x80, &data, 1, nullptr) == 0) {
+    Serial.print("OK Register READ ");
+    Serial.print("0x");
+    Serial.print(reg, HEX);
+    Serial.print(": ");
+    Serial.println(data);
+  } else {
+    Serial.print("ERROR Register READ ");
+    Serial.print("0x");
+    Serial.println(reg, HEX);
+  }
 }
 
 uint8_t getRegister(const char input[], bool &isValid) {
@@ -184,11 +171,7 @@ void readSerialData() {
                 uint8_t regAddress = getRegister(receivedChars, isValid);
 
                 if (isValid) {
-                  uint8_t regValue = readRegister(regAddress);
-                  Serial.print("Register READ 0x");
-                  Serial.print(regAddress, HEX);
-                  Serial.print(": ");
-                  Serial.println(regValue);
+                  readRegister(regAddress);
                 }
             } else if (strncmp (receivedChars, "WRITE", 5) == 0) {
                 bool isValid;
