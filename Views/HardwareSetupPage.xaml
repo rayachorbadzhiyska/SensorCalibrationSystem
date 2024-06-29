@@ -23,6 +23,7 @@
 			<ListBox
 				Name="SensorsDisplay"
 				Grid.Row="0"
+				VerticalAlignment="Bottom"
 				Background="Transparent"
 				BorderThickness="0"
 				ItemContainerStyle="{StaticResource SensorInformationItemContainerStyle}"
@@ -36,13 +37,7 @@
 					</ItemsPanelTemplate>
 				</ListBox.ItemsPanel>
 			</ListBox>
-		</Grid>
-		<Grid Grid.Column="1">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="*" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
-			<Grid Grid.Row="0">
+			<Grid Grid.Row="1">
 				<models:ZoomBorder ClipToBounds="True">
 					<Image
 						x:Name="BoardDisplay"
@@ -52,9 +47,9 @@
 				</models:ZoomBorder>
 				<StackPanel
 					Name="ChangeBoardDisplayOptionsPanel"
-					HorizontalAlignment="Right"
-					VerticalAlignment="Top"
-					Orientation="Vertical">
+					HorizontalAlignment="Left"
+					VerticalAlignment="Bottom"
+					Orientation="Horizontal">
 					<RadioButton
 						Name="FrontBoardViewButton"
 						Click="FrontBoardViewButton_Click"
@@ -73,7 +68,9 @@
 						Style="{StaticResource BoardDisplayButtonStyle}" />
 				</StackPanel>
 			</Grid>
-			<local:PrintedCircuitBoard3DView Grid.Row="1" DataContext="{Binding PrintedCircuitBoard3DViewModel}" />
+		</Grid>
+		<Grid Grid.Column="1">
+			<local:PrintedCircuitBoard3DView DataContext="{Binding PrintedCircuitBoard3DViewModel}" />
 		</Grid>
 	</Grid>
 </Page>

@@ -96,9 +96,11 @@
 				<ControlTemplate TargetType="RadioButton">
 					<Border
 						Name="ContentView"
-						Margin="0,0,0,1"
-						Background="#d2e6f7 "
-						CornerRadius="10,0,0,10">
+						Margin="0,0,1,0"
+						Background="#d2e6f7"
+						BorderBrush="Black"
+						BorderThickness="1"
+						CornerRadius="5">
 						<ContentPresenter
 							Name="ContentText"
 							Margin="10,5"
