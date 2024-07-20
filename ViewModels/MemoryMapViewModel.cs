@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using System.Windows;
 
 namespace SensorCalibrationSystem.ViewModels
 {
@@ -127,13 +128,19 @@ namespace SensorCalibrationSystem.ViewModels
                     }
                 }
             }
+            else if (e.StartsWith("ERROR:"))
+            {
+                string[] data = e.Split(':', System.StringSplitOptions.RemoveEmptyEntries);
+                string errorMessage = data[1];
+                MessageBox.Show(errorMessage, "An error has occurred", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ReadRegister(RegisterModel register)
         {
             if (register is RegisterModel)
             {
-                boardCommunicationService.WriteLine($"READ {register.Address}");
+                boardCommunicationService.WriteLine($"READ {register.Address} {register.Size}");
             }
         }
 
@@ -141,7 +148,7 @@ namespace SensorCalibrationSystem.ViewModels
         {
             if (register is RegisterModel)
             {
-                boardCommunicationService.WriteLine($"WRITE {register.Address} {register.Value}");
+                boardCommunicationService.WriteLine($"WRITE {register.Address} {register.Value} {register.Size}");
             }
         }
 

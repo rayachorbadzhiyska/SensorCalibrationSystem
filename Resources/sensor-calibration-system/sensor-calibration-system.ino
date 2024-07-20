@@ -4,6 +4,8 @@
 
 SensorQuaternion rotation(SENSOR_ID_RV);
 
+#define MAX_WRITE_BYTES 64
+
 const byte numChars = 64;
 char receivedChars[numChars];  
 
@@ -57,88 +59,110 @@ void stopQuaternionValuesStreaming() {
   rotation.end();
 }
 
-void writeRegister(uint8_t reg, uint8_t value) {
-  if (bhy2_spi_write(reg & 0x7F, &value, 1, nullptr) == 0) {
+void writeRegister(uint8_t reg, uint8_t *value, uint32_t length) {
+  if (bhy2_spi_write(reg & 0x7F, value, length, nullptr) == 0) {
     Serial.print("OK Register WRITE ");
     Serial.print("0x");
     Serial.print(reg, HEX);
     Serial.print(": ");
-    Serial.println(value);
+    for (uint32_t i = 0; i < length; i++) {
+        Serial.print(value[i]);
+      }
+    Serial.println();
   } else {
-    Serial.print("ERROR Register WRITE ");
+    Serial.print("ERROR: Could not write register ");
     Serial.print("0x");
     Serial.print(reg, HEX);
-    Serial.print(": ");
-    Serial.println(value);
+    Serial.print(" with value ");
+    for (uint32_t i = 0; i < length; i++) {
+        Serial.print(value[i]);
+      }
+    Serial.println();
   }
 }
 
-void readRegister(uint8_t reg) {
-  uint8_t data = 0;
+void readRegister(uint8_t startReg, uint32_t length) {
+    uint8_t *data = new uint8_t[length]; // Dynamically allocate memory for the data array
 
-  if (bhy2_spi_read(reg | 0x80, &data, 1, nullptr) == 0) {
-    Serial.print("OK Register READ ");
-    Serial.print("0x");
-    Serial.print(reg, HEX);
-    Serial.print(": ");
-    Serial.println(data);
-  } else {
-    Serial.print("ERROR Register READ ");
-    Serial.print("0x");
-    Serial.println(reg, HEX);
-  }
+    if (bhy2_spi_read(startReg | 0x80, data, length, nullptr) == 0) {
+        Serial.print("OK Register READ ");
+        Serial.print("0x");
+        Serial.print(startReg, HEX);
+        Serial.print(": ");
+
+        for (uint32_t i = 0; i < length; i++) {
+            Serial.print(data[i]);
+        }
+
+        Serial.println();
+    } else {
+        Serial.print("ERROR: Could not read register ");
+        Serial.print("0x");
+        Serial.println(startReg, HEX);
+    }
+
+    delete[] data; // Free the allocated memory
 }
 
-uint8_t getRegister(const char input[], bool &isValid) {
-    char buffer[64];
+bool parseRegisterReadCommand(const char input[], uint8_t &startReg, uint32_t &length) {
+    char buffer[256];
     strncpy(buffer, input, sizeof(buffer) - 1);
     buffer[sizeof(buffer) - 1] = '\0'; // Ensure null termination
 
     char *command;
-    char *value;
-    uint8_t regAddress = 0;
+    char *regStr;
+    char *lengthStr;
 
-    // Split the receivedChars string by spaces
+    // Split the input string by spaces
     command = strtok(buffer, " ");
-    value = strtok(NULL, " ");
+    regStr = strtok(NULL, " ");
+    lengthStr = strtok(NULL, " ");
 
-    // Check if we have a valid command and value
-    if (command != NULL && value != NULL) {
-      regAddress = (uint8_t)strtol(value, NULL, 16);
-      isValid = true;
+    // Check if we have valid command, register, and length
+    if (command != NULL && regStr != NULL && lengthStr != NULL) {
+        startReg = (uint8_t)strtol(regStr, NULL, 16);
+        length = (uint32_t)strtol(lengthStr, NULL, 10) / 8; // Convert length from bits to bytes
+
+        return true;
     } else {
-      Serial.println("ERROR: Invalid command or value received.");
-      isValid = false;
+        Serial.println("ERROR: Invalid command format.");
+        return false;
     }
-
-    return regAddress;
 }
 
-uint8_t getRegisterWriteValue(const char input[], bool &isValid) {
-    char buffer[64];
+bool parseRegisterWriteCommand(const char input[], uint8_t &startReg, uint8_t *&data, uint32_t &length) {
+    char buffer[256];
     strncpy(buffer, input, sizeof(buffer) - 1);
     buffer[sizeof(buffer) - 1] = '\0'; // Ensure null termination
 
     char *command;
-    char *reg;
-    char *writeValue;
-    uint8_t writeRegValue = 0;
+    char *regStr;
+    char *valueStr;
+    char *lengthStr;
 
-    // Split the receivedChars string by spaces
+    // Split the input string by spaces
     command = strtok(buffer, " ");
-    reg = strtok(NULL, " ");
-    writeValue = strtok(NULL, " ");
+    regStr = strtok(NULL, " ");
+    valueStr = strtok(NULL, " ");
+    lengthStr = strtok(NULL, " ");
 
-    // Check if we have a valid command and value
-    if (command != NULL && reg != NULL && writeValue != NULL) {
-      writeRegValue = (uint8_t)strtol(writeValue, NULL, 10);
-      isValid = true;
+    // Check if we have valid command, register, value, and length
+    if (command != NULL && regStr != NULL && valueStr != NULL && lengthStr != NULL) {
+        startReg = (uint8_t)strtol(regStr, NULL, 16);
+        length = (uint32_t)strtol(lengthStr, NULL, 10) / 8; // Convert length from bits to bytes
+
+        uint32_t value = (uint32_t)strtol(valueStr, NULL, 10);
+
+        data = new uint8_t[length];
+        for (uint32_t i = 0; i < length; i++) {
+            data[length - 1 - i] = (uint8_t)(value >> (i * 8));
+        }
+
+        return true;
     } else {
-      Serial.println("ERROR: Invalid command, register or write value received.");
-      isValid = false;
+        Serial.println("ERROR: Invalid command format.");
+        return false;
     }
-
-    return writeRegValue;
 }
 
 void readSerialData() {
@@ -167,20 +191,20 @@ void readSerialData() {
             } else if (strcmp(receivedChars, "STOP_QUATERNION_VALUES_STREAMING") == 0) {
               stopQuaternionValuesStreaming();
             } else if (strncmp (receivedChars, "READ", 4) == 0) {
-                bool isValid;
-                uint8_t regAddress = getRegister(receivedChars, isValid);
+                uint8_t startReg;
+                uint32_t length;
 
-                if (isValid) {
-                  readRegister(regAddress);
+                if (parseRegisterReadCommand(receivedChars, startReg, length)) {
+                  readRegister(startReg, length);
                 }
             } else if (strncmp (receivedChars, "WRITE", 5) == 0) {
-                bool isValid;
-  
-                uint8_t regAddress = getRegister(receivedChars, isValid);
-                uint8_t regWriteValue = getRegisterWriteValue(receivedChars, isValid);
+                uint8_t startReg;
+                uint8_t *data;
+                uint32_t length;
 
-                if (isValid) {
-                  writeRegister(regAddress, regWriteValue);
+                if (parseRegisterWriteCommand(receivedChars, startReg, data, length)) {
+                  writeRegister(startReg, data, length);
+                  delete[] data; // Don't forget to free the allocated memory
                 }
             }
         }
