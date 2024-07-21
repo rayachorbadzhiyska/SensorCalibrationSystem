@@ -212,9 +212,7 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="DataGridColumnHeader">
 					<StackPanel Orientation="Horizontal">
-						<ComboBox
-							ItemsSource="{Binding DataContext.ValueFormats, RelativeSource={RelativeSource AncestorType=Page}}"
-							SelectedItem="{Binding DataContext.SelectedValueFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Page}}" />
+						<ComboBox ItemsSource="{Binding DataContext.ValueFormats, RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding DataContext.SelectedValueFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Page}}" />
 						<Label
 							Margin="5,0,0,5"
 							Content="Value"
@@ -287,6 +285,11 @@
 				<Setter Property="Text" Value="" />
 			</DataTrigger>
 		</Style.Triggers>
+	</Style>
+
+	<Style x:Key="MemoryMapLabelStyle" TargetType="Label">
+		<Setter Property="Cursor" Value="Hand" />
+		<Setter Property="Template" Value="{StaticResource MemoryMapLabelTemplate}" />
 	</Style>
 
 </ResourceDictionary>
