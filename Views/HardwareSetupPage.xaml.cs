@@ -31,7 +31,7 @@ namespace SensorCalibrationSystem.Views
 
             if (item is not null)
             {
-                SensorModel sensor = ((ListBoxItem)item).DataContext as SensorModel;
+                SensorModel? sensor = ((ListBoxItem)item).DataContext as SensorModel;
 
                 if (sensor is null)
                 {

@@ -12,16 +12,16 @@ namespace SensorCalibrationSystem.ViewModels
     public class SerialPortConfigurationViewModel : ObservableObject
     {
         private readonly IBoardCommunicationService boardCommunicationService;
-        private string selectedSerialPort;
-        private string selectedDevice;
+        private string? selectedSerialPort;
+        private string? selectedDevice;
 
-        public string SelectedSerialPort
+        public string? SelectedSerialPort
         {
             get => selectedSerialPort;
             set => SetProperty(ref selectedSerialPort, value);
         }
 
-        public string SelectedDevice
+        public string? SelectedDevice
         {
             get => selectedDevice;
             set => SetProperty(ref selectedDevice, value);
@@ -31,7 +31,7 @@ namespace SensorCalibrationSystem.ViewModels
 
         public IRelayCommand ConfigureSerialPortCommand { get; }
 
-        public event EventHandler OnSuccessfullyConfigured;
+        public event EventHandler? OnSuccessfullyConfigured;
 
         public SerialPortConfigurationViewModel(IBoardCommunicationService boardCommunicationService)
         {
@@ -49,9 +49,12 @@ namespace SensorCalibrationSystem.ViewModels
         {
             try
             {
-                boardCommunicationService.Connect(selectedSerialPort);
+                if (selectedSerialPort is not null)
+                {
+                    boardCommunicationService.Connect(selectedSerialPort);
+                }
 
-                OnSuccessfullyConfigured?.Invoke(this, null);
+                OnSuccessfullyConfigured?.Invoke(this, new EventArgs());
             }
             catch
             {

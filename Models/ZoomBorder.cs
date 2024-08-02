@@ -11,7 +11,7 @@ namespace SensorCalibrationSystem.Models
     /// </summary>
     public class ZoomBorder : Border
     {
-        private UIElement child = null;
+        private UIElement? child = null;
         private Point origin;
         private Point start;
 
@@ -29,7 +29,7 @@ namespace SensorCalibrationSystem.Models
 
         public override UIElement Child
         {
-            get { return base.Child; }
+            get => base.Child;
             set
             {
                 if (value is not null && value != this.Child)

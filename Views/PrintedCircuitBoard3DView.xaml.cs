@@ -14,7 +14,7 @@ namespace SensorCalibrationSystem.Views
     public partial class PrintedCircuitBoard3DView : UserControl, IReloadable
     {
         private readonly string localServerPort = SensorCalibrationSystem.Resources.Resources.LocalServerPort;
-        private PrintedCircuitBoard3DViewModel viewModel;
+        private PrintedCircuitBoard3DViewModel? viewModel;
 
         public bool HasBeenLoaded { get; set; }
 
@@ -75,7 +75,10 @@ namespace SensorCalibrationSystem.Views
 
         private void PrintedCircuit3DControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.viewModel.QuaternionValuesReceived -= PCB3DView_QuaternionValuesReceived;
+            if (viewModel is not null)
+            {
+                viewModel.QuaternionValuesReceived -= PCB3DView_QuaternionValuesReceived;
+            }
         }
     }
 }

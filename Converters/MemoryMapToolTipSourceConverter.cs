@@ -10,7 +10,7 @@ namespace SensorCalibrationSystem.Converters
     {
         private const string appResourcesPath = @"pack://application:,,,/SensorCalibrationSystem;component/Resources";
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is not null && value is MemoryMapModel memoryMap)
             {
@@ -22,7 +22,7 @@ namespace SensorCalibrationSystem.Converters
             return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return null;
         }

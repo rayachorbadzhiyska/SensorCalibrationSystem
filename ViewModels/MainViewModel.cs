@@ -11,13 +11,13 @@ namespace SensorCalibrationSystem.ViewModels
     {
         #region Fields
 
-        private INavigationPage selectedPage;
+        private INavigationPage? selectedPage;
 
         #endregion
 
         #region Properties
 
-        public INavigationPage SelectedPage
+        public INavigationPage? SelectedPage
         {
             get => selectedPage;
             set => SetProperty(ref selectedPage, value);
@@ -65,7 +65,7 @@ namespace SensorCalibrationSystem.ViewModels
         private void OnLoaded()
         {
             // Navigate to the first selected page.
-            SelectedPage.OnNavigatedTo();
+            SelectedPage?.OnNavigatedTo();
         }
 
         private void ShowPage(int index)

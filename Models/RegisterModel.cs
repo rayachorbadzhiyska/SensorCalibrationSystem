@@ -7,7 +7,7 @@ namespace SensorCalibrationSystem.Models
     /// </summary>
     public class RegisterModel : ObservableObject
     {
-        private string value;
+        private string? value;
 
         /// <summary>
         /// Gets or sets the register's name.
@@ -37,7 +37,7 @@ namespace SensorCalibrationSystem.Models
         /// <summary>
         /// Gets or sets the register's value.
         /// </summary>
-        public string Value
+        public string? Value
         {
             get => value;
             set => SetProperty(ref this.value, value);

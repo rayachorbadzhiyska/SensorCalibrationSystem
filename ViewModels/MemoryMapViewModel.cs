@@ -33,8 +33,8 @@ namespace SensorCalibrationSystem.ViewModels
         private readonly string sensorMemoryMapDataPath = @"memory-maps";
 
         private readonly IBoardCommunicationService boardCommunicationService;
-        private MemoryMapModel selectedMemoryMap;
-        private string selectedValueFormat;
+        private MemoryMapModel? selectedMemoryMap;
+        private string? selectedValueFormat;
 
         #endregion
 
@@ -42,7 +42,7 @@ namespace SensorCalibrationSystem.ViewModels
 
         public ObservableCollection<MemoryMapModel> MemoryMaps { get; set; }
 
-        public MemoryMapModel SelectedMemoryMap
+        public MemoryMapModel? SelectedMemoryMap
         {
             get => selectedMemoryMap;
             set
@@ -59,7 +59,7 @@ namespace SensorCalibrationSystem.ViewModels
             "Binary"
         };
 
-        public string SelectedValueFormat
+        public string? SelectedValueFormat
         {
             get => selectedValueFormat;
             set
@@ -103,7 +103,7 @@ namespace SensorCalibrationSystem.ViewModels
             {
                 string jsonData = File.ReadAllText(file);
 
-                MemoryMapModel memoryMap = JsonSerializer.Deserialize<MemoryMapModel>(jsonData);
+                MemoryMapModel? memoryMap = JsonSerializer.Deserialize<MemoryMapModel>(jsonData);
 
                 if (memoryMap is not null)
                 {
@@ -122,7 +122,9 @@ namespace SensorCalibrationSystem.ViewModels
                     string regAddress = data[3];
                     int regValue = int.Parse(data[4]);
 
-                    if (SelectedMemoryMap.Registers.Any(x => x.Address == regAddress))
+                    if (SelectedMemoryMap is not null
+                        && SelectedMemoryMap.Registers is not null
+                        && SelectedMemoryMap.Registers.Any(x => x.Address == regAddress))
                     {
                         SelectedMemoryMap.Registers.First(x => x.Address == regAddress).Value = regValue.ToString();
                     }
@@ -136,7 +138,7 @@ namespace SensorCalibrationSystem.ViewModels
             }
         }
 
-        private void ReadRegister(RegisterModel register)
+        private void ReadRegister(RegisterModel? register)
         {
             if (register is RegisterModel)
             {
@@ -144,7 +146,7 @@ namespace SensorCalibrationSystem.ViewModels
             }
         }
 
-        private void WriteRegister(RegisterModel register)
+        private void WriteRegister(RegisterModel? register)
         {
             if (register is RegisterModel)
             {

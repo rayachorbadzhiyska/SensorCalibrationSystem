@@ -59,7 +59,7 @@ namespace SensorCalibrationSystem.ViewModels
             {
                 string jsonData = File.ReadAllText(file);
 
-                SensorModel sensor = JsonSerializer.Deserialize<SensorModel>(jsonData);
+                SensorModel? sensor = JsonSerializer.Deserialize<SensorModel>(jsonData);
 
                 if (sensor is not null)
                 {
