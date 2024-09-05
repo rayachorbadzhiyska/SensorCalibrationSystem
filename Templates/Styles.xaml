@@ -206,24 +206,6 @@
 		</Setter>
 	</Style>
 
-	<Style x:Key="MemoryMapValueColumnHeaderStyle" TargetType="DataGridColumnHeader">
-		<Setter Property="HorizontalAlignment" Value="Center" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="DataGridColumnHeader">
-					<StackPanel Orientation="Horizontal">
-						<ComboBox ItemsSource="{Binding DataContext.ValueFormats, RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding DataContext.SelectedValueFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Page}}" />
-						<Label
-							Margin="5,0,0,5"
-							Content="Value"
-							FontWeight="SemiBold"
-							Foreground="SteelBlue" />
-					</StackPanel>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
 	<Style x:Key="MemoryMapRowStyle" TargetType="DataGridRow">
 		<Style.Triggers>
 			<Trigger Property="IsSelected" Value="True">

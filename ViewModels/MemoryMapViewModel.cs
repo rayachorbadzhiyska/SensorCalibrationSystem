@@ -6,7 +6,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text.Json;
 using System.Windows;
 
@@ -31,10 +33,15 @@ namespace SensorCalibrationSystem.ViewModels
         #region Fields
 
         private readonly string sensorMemoryMapDataPath = @"memory-maps";
+        private readonly string communicationTypesFilePath = @"Resources\communication-types.json";
 
         private readonly IBoardCommunicationService boardCommunicationService;
+
         private MemoryMapModel? selectedMemoryMap;
         private string? selectedValueFormat;
+
+        private List<string> communicationTypes;
+        private string selectedCommunicationType;
 
         #endregion
 
@@ -65,6 +72,26 @@ namespace SensorCalibrationSystem.ViewModels
             set
             {
                 selectedValueFormat = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<string> CommunicationTypes
+        {
+            get => communicationTypes;
+            set
+            {
+                communicationTypes = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SelectedCommunicationType
+        {
+            get => selectedCommunicationType;
+            set
+            {
+                selectedCommunicationType = value;
                 OnPropertyChanged();
             }
         }
@@ -109,6 +136,35 @@ namespace SensorCalibrationSystem.ViewModels
                 {
                     MemoryMaps.Add(memoryMap);
                 }
+            }
+        }
+
+        private void LoadCommunicationTypes()
+        {
+            string directoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string fullCommunicationTypesFilePath = Path.Combine(directoryPath, communicationTypesFilePath);
+
+            if (File.Exists(fullCommunicationTypesFilePath))
+            {
+                string? jsonData = File.ReadAllText(communicationTypesFilePath);
+
+                if (string.IsNullOrEmpty(jsonData))
+                {
+                    MessageBox.Show("Communication types file is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                List<string> communicationTypesList = JsonSerializer.Deserialize<List<string>>(jsonData);
+
+                if (communicationTypesList is not null && communicationTypesList.Any())
+                {
+                    CommunicationTypes = communicationTypesList;
+                    SelectedCommunicationType = CommunicationTypes.First();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Communication types file does not exist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -163,6 +219,8 @@ namespace SensorCalibrationSystem.ViewModels
             if (!HasBeenLoaded)
             {
                 LoadMemoryMapData();
+
+                LoadCommunicationTypes();
 
                 SelectedMemoryMap = MemoryMaps.FirstOrDefault();
                 SelectedValueFormat = ValueFormats.First();

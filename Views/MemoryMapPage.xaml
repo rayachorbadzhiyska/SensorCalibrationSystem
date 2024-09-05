@@ -91,14 +91,53 @@
 								<DataGridTemplateColumn
 									Width="Auto"
 									CellStyle="{StaticResource MemoryMapColumnStyle}"
-									CellTemplate="{DynamicResource MemoryMapValueColumnDataTemplate}"
-									HeaderStyle="{StaticResource MemoryMapValueColumnHeaderStyle}" />
+									CellTemplate="{DynamicResource MemoryMapValueColumnDataTemplate}">
+									<DataGridTemplateColumn.HeaderStyle>
+										<Style TargetType="DataGridColumnHeader">
+											<Setter Property="HorizontalAlignment" Value="Center" />
+											<Setter Property="Template">
+												<Setter.Value>
+													<ControlTemplate TargetType="DataGridColumnHeader">
+														<StackPanel Orientation="Horizontal">
+															<ComboBox
+																Foreground="SteelBlue"
+																ItemsSource="{Binding DataContext.ValueFormats, RelativeSource={RelativeSource AncestorType=Page}}"
+																Loaded="ComboBox_Loaded"
+																SelectedItem="{Binding DataContext.SelectedValueFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Page}}" />
+															<Label
+																Margin="5,0,0,5"
+																Content="Value"
+																FontWeight="SemiBold"
+																Foreground="SteelBlue" />
+														</StackPanel>
+													</ControlTemplate>
+												</Setter.Value>
+											</Setter>
+										</Style>
+									</DataGridTemplateColumn.HeaderStyle>
+								</DataGridTemplateColumn>
 								<DataGridTemplateColumn
 									Width="Auto"
 									CellStyle="{StaticResource MemoryMapColumnStyle}"
-									CellTemplate="{DynamicResource MemoryMapActionColumnDataTemplate}"
-									Header=""
-									HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}" />
+									CellTemplate="{DynamicResource MemoryMapActionColumnDataTemplate}">
+									<DataGridTemplateColumn.HeaderStyle>
+										<Style TargetType="DataGridColumnHeader">
+											<Setter Property="HorizontalAlignment" Value="Left" />
+											<Setter Property="Template">
+												<Setter.Value>
+													<ControlTemplate TargetType="DataGridColumnHeader">
+														<ComboBox
+															Margin="15,0,0,0"
+															Foreground="SteelBlue"
+															ItemsSource="{Binding DataContext.CommunicationTypes, RelativeSource={RelativeSource AncestorType=Page}}"
+															Loaded="ComboBox_Loaded"
+															SelectedItem="{Binding DataContext.SelectedCommunicationType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Page}}" />
+													</ControlTemplate>
+												</Setter.Value>
+											</Setter>
+										</Style>
+									</DataGridTemplateColumn.HeaderStyle>
+								</DataGridTemplateColumn>
 							</DataGrid.Columns>
 						</DataGrid>
 						<Label
