@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\baud-rates.json" />
     <None Remove="Resources\BHI260AP-memory-map.png" />
     <None Remove="Resources\BHI260AP-on-board.png" />
     <None Remove="Resources\BHI260AP.png" />
@@ -56,6 +57,9 @@
     <Resource Include="Resources\board-front.png" />
     <Resource Include="Resources\board-pinout.png" />
     <Resource Include="Resources\calibration.png" />
+    <EmbeddedResource Include="Resources\baud-rates.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\communication-types.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -85,9 +89,6 @@
     </None>
     <None Update="PrintedCircuitBoard3D.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\baud-rates.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\board-3d-back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

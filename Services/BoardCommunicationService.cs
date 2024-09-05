@@ -16,11 +16,9 @@ namespace SensorCalibrationSystem.Services
         public BoardCommunicationService()
         {
             serialPort = new();
-            serialPort.BaudRate = 115200;
             serialPort.NewLine = "\n";
             serialPort.StopBits = StopBits.One;
             serialPort.Parity = Parity.None;
-            serialPort.DataReceived += BoardCommunicationService_SerialDataReceived;
         }
 
         /// <inheritdoc />
@@ -35,15 +33,27 @@ namespace SensorCalibrationSystem.Services
         }
 
         /// <inheritdoc />
-        public void Connect(string port)
+        public void Connect(string port, string baudRate)
         {
             serialPort.PortName = port;
+            serialPort.BaudRate = String.IsNullOrEmpty(baudRate) ? 115200 : int.Parse(baudRate);
 
             serialPort.Open();
+            serialPort.DataReceived += BoardCommunicationService_SerialDataReceived;
         }
 
         /// <inheritdoc />
         public void Disconnect()
+        {
+            if (serialPort.IsOpen)
+            {
+                serialPort.DataReceived -= BoardCommunicationService_SerialDataReceived;
+                serialPort.Close();
+            }
+        }
+
+        /// <inheritdoc />
+        public void Terminate()
         {
             if (serialPort.IsOpen)
             {

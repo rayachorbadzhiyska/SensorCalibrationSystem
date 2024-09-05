@@ -3,6 +3,9 @@ using SensorCalibrationSystem.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SensorCalibrationSystem
 {
@@ -28,7 +31,33 @@ namespace SensorCalibrationSystem
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            boardCommunicationService.Disconnect();
+            boardCommunicationService.Terminate();
+        }
+
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+
+            if (comboBox is null)
+            {
+                return;
+            }
+
+            ToggleButton toggleButton = comboBox.Template.FindName("toggleButton", comboBox) as ToggleButton;
+
+            if (toggleButton is null)
+            {
+                return;
+            }
+
+            Border border = toggleButton.Template.FindName("templateRoot", toggleButton) as Border;
+
+            if (border != null)
+            {
+                border.Background = Brushes.Transparent;
+                border.BorderBrush = Brushes.SteelBlue;
+                border.BorderThickness = new Thickness(1);
+            }
         }
 
         #region Toolbar

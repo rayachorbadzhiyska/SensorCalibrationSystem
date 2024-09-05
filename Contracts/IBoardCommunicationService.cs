@@ -13,15 +13,21 @@ namespace SensorCalibrationSystem.Contracts
         event EventHandler<string>? SerialDataReceived;
 
         /// <summary>
-        /// Connects to the board on the specified serial port.
+        /// Connects to the board on the specified serial port with the specified baud rate (optional).
         /// </summary>
         /// <param name="port">The serial port.</param>
-        void Connect(string port);
+        /// <param name="baudRate">The baud rate (optional).</param>
+        void Connect(string port, string baudRate = "");
 
         /// <summary>
         /// Disconnects from the board.
         /// </summary>
         void Disconnect();
+
+        /// <summary>
+        /// Terminates the connection to the board.
+        /// </summary>
+        void Terminate();
 
         /// <summary>
         /// Reads a single line.

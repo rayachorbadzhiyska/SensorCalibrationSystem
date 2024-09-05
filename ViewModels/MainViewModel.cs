@@ -25,6 +25,8 @@ namespace SensorCalibrationSystem.ViewModels
 
         public ObservableCollection<INavigationPage> NavigationPages { get; }
 
+        public SerialPortConfigurationViewModel SerialPortConfiguration { get; }
+
         #endregion
 
         #region Commands
@@ -37,7 +39,10 @@ namespace SensorCalibrationSystem.ViewModels
 
         #region Constructor
 
-        public MainViewModel(IEnumerable<INavigationPage> navigationPages)
+        public MainViewModel(
+            IBoardCommunicationService boardCommunicationService,
+            SerialPortConfigurationViewModel serialPortConfigurationViewModel,
+            IEnumerable<INavigationPage> navigationPages)
         {
             OnLoadedCommand = new RelayCommand(OnLoaded);
             ShowPageCommand = new RelayCommand<int>(ShowPage);
@@ -56,6 +61,8 @@ namespace SensorCalibrationSystem.ViewModels
                 NavigationPages.First().IsActive = true;
                 SelectedPage = NavigationPages.First();
             }
+
+            SerialPortConfiguration = serialPortConfigurationViewModel;
         }
 
         #endregion
@@ -64,6 +71,8 @@ namespace SensorCalibrationSystem.ViewModels
 
         private void OnLoaded()
         {
+            SerialPortConfiguration.LoadBaudRates();
+
             // Navigate to the first selected page.
             SelectedPage?.OnNavigatedTo();
         }
