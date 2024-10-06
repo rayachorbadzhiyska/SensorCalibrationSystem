@@ -87,6 +87,15 @@
     <None Update="memory-maps\BHI260AP.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="memory-maps\BME688.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="memory-maps\BMM150.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="memory-maps\BMP390.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="PrintedCircuitBoard3D.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

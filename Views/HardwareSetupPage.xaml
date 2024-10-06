@@ -70,7 +70,7 @@
 			</Grid>
 		</Grid>
 		<Grid Grid.Column="1">
-			<local:PrintedCircuitBoard3DView DataContext="{Binding PrintedCircuitBoard3DViewModel}" />
+			<ContentControl Content="{Binding PrintedCircuitBoard3DViewModel}" />
 		</Grid>
 	</Grid>
 </Page>

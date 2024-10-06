@@ -13,6 +13,11 @@ namespace SensorCalibrationSystem.Contracts
         event EventHandler<string>? SerialDataReceived;
 
         /// <summary>
+        /// An event, which should be handled whenever an action is required when the connection has been changed (connected/lost).
+        /// </summary>
+        event EventHandler<bool>? ConnectionChanged;
+
+        /// <summary>
         /// Connects to the board on the specified serial port with the specified baud rate (optional).
         /// </summary>
         /// <param name="port">The serial port.</param>
@@ -39,5 +44,11 @@ namespace SensorCalibrationSystem.Contracts
         /// </summary>
         /// <param name="message">The message to be sent out.</param>
         void WriteLine(string message);
+
+        /// <summary>
+        /// Returns whether a connection is established.
+        /// </summary>
+        /// <returns></returns>
+        bool CheckConnection();
     }
 }

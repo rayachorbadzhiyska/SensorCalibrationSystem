@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SensorCalibrationSystem.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Threading;
 
 namespace SensorCalibrationSystem.ViewModels
 {
@@ -12,6 +14,7 @@ namespace SensorCalibrationSystem.ViewModels
         #region Fields
 
         private INavigationPage? selectedPage;
+        private DispatcherTimer refreshTimer;
 
         #endregion
 
@@ -33,6 +36,8 @@ namespace SensorCalibrationSystem.ViewModels
 
         public IRelayCommand OnLoadedCommand { get; }
 
+        public IRelayCommand OnUnloadedCommand { get; }
+
         public IRelayCommand ShowPageCommand { get; }
 
         #endregion
@@ -45,6 +50,7 @@ namespace SensorCalibrationSystem.ViewModels
             IEnumerable<INavigationPage> navigationPages)
         {
             OnLoadedCommand = new RelayCommand(OnLoaded);
+            OnUnloadedCommand = new RelayCommand(OnUnloaded);
             ShowPageCommand = new RelayCommand<int>(ShowPage);
 
             NavigationPages = new ObservableCollection<INavigationPage>(navigationPages);
@@ -63,6 +69,12 @@ namespace SensorCalibrationSystem.ViewModels
             }
 
             SerialPortConfiguration = serialPortConfigurationViewModel;
+
+            refreshTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
+            refreshTimer.Tick += (sender, e) =>
+            {
+                SerialPortConfiguration.CheckConnection();
+            };
         }
 
         #endregion
@@ -75,6 +87,13 @@ namespace SensorCalibrationSystem.ViewModels
 
             // Navigate to the first selected page.
             SelectedPage?.OnNavigatedTo();
+
+            refreshTimer.Start();
+        }
+
+        private void OnUnloaded()
+        {
+            refreshTimer.Stop();
         }
 
         private void ShowPage(int index)

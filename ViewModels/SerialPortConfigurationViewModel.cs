@@ -21,6 +21,7 @@ namespace SensorCalibrationSystem.ViewModels
         private string? selectedDevice;
         private List<string> baudRates;
         private string selectedBaudRate;
+        private bool isConnected;
 
         public string? SelectedSerialPort
         {
@@ -46,6 +47,12 @@ namespace SensorCalibrationSystem.ViewModels
         {
             get => selectedBaudRate;
             set => SetProperty(ref selectedBaudRate, value);
+        }
+
+        public bool IsConnected 
+        { 
+            get => isConnected; 
+            set => SetProperty(ref isConnected, value); 
         }
 
         public IRelayCommand ConfigureSerialPortCommand { get; }
@@ -83,6 +90,11 @@ namespace SensorCalibrationSystem.ViewModels
                 MessageBox.Show($"Couldn't connect on port {selectedSerialPort}!\nCheck if the port exists or is already in use.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public void CheckConnection()
+        {
+            IsConnected = boardCommunicationService.CheckConnection();
         }
 
         public void OnBaudRateChanged()

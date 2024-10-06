@@ -1,0 +1,6 @@
+{
+    "Sensor": "BME688",
+	"ImagePath": "",
+	"Registers": [
+    ]
+}

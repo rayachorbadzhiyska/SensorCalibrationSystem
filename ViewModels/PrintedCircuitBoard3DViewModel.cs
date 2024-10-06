@@ -12,16 +12,17 @@ namespace SensorCalibrationSystem.ViewModels
         #region Fields
 
         private readonly IBoardCommunicationService boardCommunicationService;
+
         private QuaternionModel? quaternionModel;
 
         #endregion
 
         #region Properties
 
-        public QuaternionModel? QuaternionModel 
-        { 
-            get => quaternionModel; 
-            set => SetProperty(ref quaternionModel, value); 
+        public QuaternionModel? QuaternionModel
+        {
+            get => quaternionModel;
+            set => SetProperty(ref quaternionModel, value);
         }
 
         #endregion
@@ -48,7 +49,20 @@ namespace SensorCalibrationSystem.ViewModels
             try
             {
                 // Process the received data (e.g., extract quaternion values)
-                ProcessReceivedData(data);
+                string[] values = data.Split(' ');
+                if (values.Length == 5 && values[0] == "Quaternion:")
+                {
+                    float x = float.Parse(values[1], CultureInfo.InvariantCulture.NumberFormat);
+                    float y = float.Parse(values[2], CultureInfo.InvariantCulture.NumberFormat);
+                    float z = float.Parse(values[3], CultureInfo.InvariantCulture.NumberFormat);
+                    float w = float.Parse(values[4], CultureInfo.InvariantCulture.NumberFormat);
+
+                    QuaternionModel quaternion = new QuaternionModel(x, y, z, w);
+
+                    QuaternionModel = quaternion;
+
+                    QuaternionValuesReceived?.Invoke(this, quaternion);
+                }
             }
             catch (OperationCanceledException)
             {
@@ -58,40 +72,36 @@ namespace SensorCalibrationSystem.ViewModels
             }
         }
 
+        private void BoardCommunicationService_ConnectionChanged(object? sender, bool hasConnection)
+        {
+            if (hasConnection)
+            {
+                boardCommunicationService.WriteLine("START_QUATERNION_VALUES_STREAMING");
+            }
+            else
+            {
+                boardCommunicationService.WriteLine("STOP_QUATERNION_VALUES_STREAMING");
+            }
+        }
+
         #endregion
 
         #region Methods
 
-        private void ProcessReceivedData(string data)
-        {
-            string[] values = data.Split(' ');
-            if (values.Length == 5 && values[0] == "Quaternion:")
-            {
-                float x = float.Parse(values[1], CultureInfo.InvariantCulture.NumberFormat);
-                float y = float.Parse(values[2], CultureInfo.InvariantCulture.NumberFormat);
-                float z = float.Parse(values[3], CultureInfo.InvariantCulture.NumberFormat);
-                float w = float.Parse(values[4], CultureInfo.InvariantCulture.NumberFormat);
-
-                QuaternionModel quaternion = new QuaternionModel(x, y, z, w);
-
-                QuaternionModel = quaternion;
-
-                QuaternionValuesReceived?.Invoke(this, quaternion);
-            }
-        }
-
         public void Load()
         {
             boardCommunicationService.SerialDataReceived += SerialPort_DataReceived;
+            boardCommunicationService.ConnectionChanged += BoardCommunicationService_ConnectionChanged;
 
             boardCommunicationService.WriteLine("START_QUATERNION_VALUES_STREAMING");
         }
 
         public void Unload()
         {
-            boardCommunicationService.WriteLine("STOP_QUATERNION_VALUES_STREAMING");
-
+            boardCommunicationService.ConnectionChanged -= BoardCommunicationService_ConnectionChanged;
             boardCommunicationService.SerialDataReceived -= SerialPort_DataReceived;
+
+            boardCommunicationService.WriteLine("STOP_QUATERNION_VALUES_STREAMING");
         }
 
         #endregion

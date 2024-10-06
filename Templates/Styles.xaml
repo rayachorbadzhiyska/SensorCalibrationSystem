@@ -155,7 +155,7 @@
 											<Condition Property="IsMouseOver" Value="False" />
 										</MultiTrigger.Conditions>
 										<MultiTrigger.Setters>
-											<Setter TargetName="Border" Property="Background" Value="#f4f4f4" />
+											<Setter TargetName="Border" Property="Background" Value="#dddddd" />
 										</MultiTrigger.Setters>
 									</MultiTrigger>
 									<MultiTrigger>
@@ -164,7 +164,7 @@
 											<Condition Property="IsMouseOver" Value="True" />
 										</MultiTrigger.Conditions>
 										<MultiTrigger.Setters>
-											<Setter TargetName="Border" Property="Background" Value="#dddddd" />
+											<Setter TargetName="Border" Property="Background" Value="#cbcbcb" />
 										</MultiTrigger.Setters>
 									</MultiTrigger>
 								</ControlTemplate.Triggers>

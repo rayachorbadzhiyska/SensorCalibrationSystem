@@ -4,16 +4,26 @@
 	xmlns:viewModels="clr-namespace:SensorCalibrationSystem.ViewModels"
 	xmlns:views="clr-namespace:SensorCalibrationSystem.Views">
 
+	<views:HardwareSetupPage x:Key="HardwareSetupPage" />
+	<views:PrintedCircuitBoard3DView x:Key="PrintedCircuitBoard3DView" />
+	<views:MemoryMapPage x:Key="MemoryMapPage" />
+	<views:CalibrationPage x:Key="CalibrationPage" />
+
 	<DataTemplate DataType="{x:Type viewModels:HardwareSetupViewModel}">
-		<views:HardwareSetupPage />
+		<ContentControl Content="{StaticResource HardwareSetupPage}" />
+	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type viewModels:PrintedCircuitBoard3DViewModel}">
+		<!--<ContentControl Content="{StaticResource PrintedCircuitBoard3DView}" />-->
+		<views:PrintedCircuitBoard3DView />
 	</DataTemplate>
 
 	<DataTemplate DataType="{x:Type viewModels:MemoryMapViewModel}">
-		<views:MemoryMapPage />
+		<ContentControl Content="{StaticResource MemoryMapPage}" />
 	</DataTemplate>
 
 	<DataTemplate DataType="{x:Type viewModels:CalibrationViewModel}">
-		<views:CalibrationPage />
+		<ContentControl Content="{StaticResource CalibrationPage}" />
 	</DataTemplate>
 
 	<DataTemplate x:Key="NavigationMenuItemTemplate">

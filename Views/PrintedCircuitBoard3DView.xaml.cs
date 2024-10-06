@@ -46,10 +46,10 @@ namespace SensorCalibrationSystem.Views
 
                         HasBeenLoaded = true;
                     }
-
-                    viewModel.QuaternionValuesReceived += PCB3DView_QuaternionValuesReceived;
                 }
             };
+
+            viewModel.QuaternionValuesReceived += PCB3DView_QuaternionValuesReceived;
         }
 
         private void createBoxDesign()

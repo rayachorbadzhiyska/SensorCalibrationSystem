@@ -27,7 +27,9 @@ namespace SensorCalibrationSystem.Views
 
             // find ListViewItem (or null)
             while (item != null && !(item is ListBoxItem))
+            {
                 item = VisualTreeHelper.GetParent(item);
+            }
 
             if (item is not null)
             {

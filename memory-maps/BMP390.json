@@ -1,0 +1,6 @@
+{
+    "Sensor": "BMP390",
+	"ImagePath": "",
+	"Registers": [
+    ]
+}
