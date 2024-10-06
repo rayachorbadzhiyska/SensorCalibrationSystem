@@ -1,6 +1,5 @@
 {
 	"Sensor": "BHI260AP",
-	"ImagePath": "BHI260AP.png",
 	"Registers": [
 		{
 			"Address": "0x00",

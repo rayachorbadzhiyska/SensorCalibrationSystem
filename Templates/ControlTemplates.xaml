@@ -46,13 +46,4 @@
 		<ContentPresenter HorizontalAlignment="Left" />
 	</ControlTemplate>
 
-	<ControlTemplate x:Key="MemoryMapLabelTemplate" TargetType="Label">
-		<Border
-			BorderBrush="White"
-			BorderThickness="1"
-			CornerRadius="5">
-			<ContentPresenter Margin="5" />
-		</Border>
-	</ControlTemplate>
-
 </ResourceDictionary>

@@ -19,144 +19,126 @@
 			TabStripPlacement="Top">
 			<TabControl.ContentTemplate>
 				<DataTemplate>
-					<Grid>
-						<DataGrid
-							Padding="10"
-							AutoGenerateColumns="False"
-							Background="#191919"
-							BorderThickness="0"
-							CanUserAddRows="False"
-							CanUserDeleteRows="False"
-							CanUserReorderColumns="False"
-							CanUserResizeColumns="False"
-							CanUserResizeRows="False"
-							CanUserSortColumns="False"
-							FocusVisualStyle="{x:Null}"
-							GridLinesVisibility="Horizontal"
-							HeadersVisibility="Column"
-							HorizontalGridLinesBrush="#464646"
-							HorizontalScrollBarVisibility="Auto"
-							IsSynchronizedWithCurrentItem="True"
-							ItemsSource="{Binding Registers}"
-							RowBackground="#191919"
-							VerticalScrollBarVisibility="Auto">
-							<DataGrid.ColumnHeaderStyle>
-								<Style TargetType="DataGridColumnHeader">
-									<Setter Property="Background" Value="#191919" />
-									<Setter Property="BorderThickness" Value="0,0,0,1" />
-									<Setter Property="BorderBrush" Value="#464646" />
-								</Style>
-							</DataGrid.ColumnHeaderStyle>
-							<DataGrid.Columns>
-								<DataGridTextColumn
-									Width="Auto"
-									Binding="{Binding Name}"
-									CellStyle="{StaticResource MemoryMapColumnStyle}"
-									Header="Register"
-									HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
-									IsReadOnly="True" />
-								<DataGridTemplateColumn
-									Width="200"
-									CellStyle="{StaticResource MemoryMapColumnStyle}"
-									Header="Description"
-									HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
-									IsReadOnly="True">
-									<DataGridTemplateColumn.CellTemplate>
-										<DataTemplate DataType="DataGridTemplateColumn">
-											<TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
-										</DataTemplate>
-									</DataGridTemplateColumn.CellTemplate>
-								</DataGridTemplateColumn>
-								<DataGridTextColumn
-									Width="Auto"
-									Binding="{Binding Address}"
-									CellStyle="{StaticResource MemoryMapColumnStyle}"
-									Header="Address"
-									HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
-									IsReadOnly="True" />
-								<DataGridTextColumn
-									Width="Auto"
-									Binding="{Binding Size}"
-									CellStyle="{StaticResource MemoryMapColumnStyle}"
-									Header="Size"
-									HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
-									IsReadOnly="True" />
-								<DataGridTextColumn
-									Width="Auto"
-									Binding="{Binding Access}"
-									CellStyle="{StaticResource MemoryMapColumnStyle}"
-									Header="Access"
-									HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
-									IsReadOnly="True" />
-								<DataGridTemplateColumn
-									Width="Auto"
-									CellStyle="{StaticResource MemoryMapColumnStyle}"
-									CellTemplate="{DynamicResource MemoryMapValueColumnDataTemplate}">
-									<DataGridTemplateColumn.HeaderStyle>
-										<Style TargetType="DataGridColumnHeader">
-											<Setter Property="HorizontalAlignment" Value="Center" />
-											<Setter Property="Template">
-												<Setter.Value>
-													<ControlTemplate TargetType="DataGridColumnHeader">
-														<StackPanel Orientation="Horizontal">
-															<ComboBox
-																Foreground="SteelBlue"
-																ItemsSource="{Binding DataContext.ValueFormats, RelativeSource={RelativeSource AncestorType=Page}}"
-																Loaded="ComboBox_Loaded"
-																SelectedItem="{Binding DataContext.SelectedValueFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Page}}" />
-															<Label
-																Margin="5,0,0,5"
-																Content="Value"
-																FontWeight="SemiBold"
-																Foreground="SteelBlue" />
-														</StackPanel>
-													</ControlTemplate>
-												</Setter.Value>
-											</Setter>
-										</Style>
-									</DataGridTemplateColumn.HeaderStyle>
-								</DataGridTemplateColumn>
-								<DataGridTemplateColumn
-									Width="Auto"
-									CellStyle="{StaticResource MemoryMapColumnStyle}"
-									CellTemplate="{DynamicResource MemoryMapActionColumnDataTemplate}">
-									<DataGridTemplateColumn.HeaderStyle>
-										<Style TargetType="DataGridColumnHeader">
-											<Setter Property="HorizontalAlignment" Value="Left" />
-											<Setter Property="Template">
-												<Setter.Value>
-													<ControlTemplate TargetType="DataGridColumnHeader">
+					<DataGrid
+						Padding="10"
+						AutoGenerateColumns="False"
+						Background="#191919"
+						BorderThickness="0"
+						CanUserAddRows="False"
+						CanUserDeleteRows="False"
+						CanUserReorderColumns="False"
+						CanUserResizeColumns="False"
+						CanUserResizeRows="False"
+						CanUserSortColumns="False"
+						FocusVisualStyle="{x:Null}"
+						GridLinesVisibility="Horizontal"
+						HeadersVisibility="Column"
+						HorizontalGridLinesBrush="#464646"
+						HorizontalScrollBarVisibility="Auto"
+						IsSynchronizedWithCurrentItem="True"
+						ItemsSource="{Binding Registers}"
+						RowBackground="#191919"
+						VerticalScrollBarVisibility="Auto">
+						<DataGrid.ColumnHeaderStyle>
+							<Style TargetType="DataGridColumnHeader">
+								<Setter Property="Background" Value="#191919" />
+								<Setter Property="BorderThickness" Value="0,0,0,1" />
+								<Setter Property="BorderBrush" Value="#464646" />
+							</Style>
+						</DataGrid.ColumnHeaderStyle>
+						<DataGrid.Columns>
+							<DataGridTextColumn
+								Width="Auto"
+								Binding="{Binding Name}"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								Header="Register"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
+								IsReadOnly="True" />
+							<DataGridTemplateColumn
+								Width="200"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								Header="Description"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
+								IsReadOnly="True">
+								<DataGridTemplateColumn.CellTemplate>
+									<DataTemplate DataType="DataGridTemplateColumn">
+										<TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+									</DataTemplate>
+								</DataGridTemplateColumn.CellTemplate>
+							</DataGridTemplateColumn>
+							<DataGridTextColumn
+								Width="Auto"
+								Binding="{Binding Address}"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								Header="Address"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
+								IsReadOnly="True" />
+							<DataGridTextColumn
+								Width="Auto"
+								Binding="{Binding Size}"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								Header="Size"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
+								IsReadOnly="True" />
+							<DataGridTextColumn
+								Width="Auto"
+								Binding="{Binding Access}"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								Header="Access"
+								HeaderStyle="{StaticResource MemoryMapColumnHeaderStyle}"
+								IsReadOnly="True" />
+							<DataGridTemplateColumn
+								Width="Auto"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								CellTemplate="{DynamicResource MemoryMapValueColumnDataTemplate}">
+								<DataGridTemplateColumn.HeaderStyle>
+									<Style TargetType="DataGridColumnHeader">
+										<Setter Property="HorizontalAlignment" Value="Center" />
+										<Setter Property="Template">
+											<Setter.Value>
+												<ControlTemplate TargetType="DataGridColumnHeader">
+													<StackPanel Orientation="Horizontal">
 														<ComboBox
-															Margin="15,0,0,0"
 															Foreground="SteelBlue"
-															ItemsSource="{Binding DataContext.CommunicationTypes, RelativeSource={RelativeSource AncestorType=Page}}"
+															ItemsSource="{Binding DataContext.ValueFormats, RelativeSource={RelativeSource AncestorType=Page}}"
 															Loaded="ComboBox_Loaded"
-															SelectedItem="{Binding DataContext.SelectedCommunicationType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Page}}" />
-													</ControlTemplate>
-												</Setter.Value>
-											</Setter>
-										</Style>
-									</DataGridTemplateColumn.HeaderStyle>
-								</DataGridTemplateColumn>
-							</DataGrid.Columns>
-						</DataGrid>
-						<Label
-							Name="MemoryMapLabel"
-							Margin="0,7,9,0"
-							HorizontalAlignment="Right"
-							VerticalAlignment="Top"
-							Content="Memory Map"
-							Foreground="White"
-							Style="{StaticResource MemoryMapLabelStyle}"
-							ToolTipService.InitialShowDelay="0">
-							<Label.Resources>
-								<converters:MemoryMapToolTipSourceConverter x:Key="MemoryMapToolTipSourceConverter" />
-							</Label.Resources>
-							<Label.ToolTip>
-								<Image x:Name="MemoryMapToolTipImage" Source="{Binding Converter={StaticResource MemoryMapToolTipSourceConverter}}" />
-							</Label.ToolTip>
-						</Label>
-					</Grid>
+															SelectedItem="{Binding DataContext.SelectedValueFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Page}}" />
+														<Label
+															Margin="5,0,0,5"
+															Content="Value"
+															FontWeight="SemiBold"
+															Foreground="SteelBlue" />
+													</StackPanel>
+												</ControlTemplate>
+											</Setter.Value>
+										</Setter>
+									</Style>
+								</DataGridTemplateColumn.HeaderStyle>
+							</DataGridTemplateColumn>
+							<DataGridTemplateColumn
+								Width="Auto"
+								CellStyle="{StaticResource MemoryMapColumnStyle}"
+								CellTemplate="{DynamicResource MemoryMapActionColumnDataTemplate}">
+								<DataGridTemplateColumn.HeaderStyle>
+									<Style TargetType="DataGridColumnHeader">
+										<Setter Property="HorizontalAlignment" Value="Left" />
+										<Setter Property="Template">
+											<Setter.Value>
+												<ControlTemplate TargetType="DataGridColumnHeader">
+													<ComboBox
+														Margin="15,0,0,0"
+														Foreground="SteelBlue"
+														ItemsSource="{Binding DataContext.CommunicationTypes, RelativeSource={RelativeSource AncestorType=Page}}"
+														Loaded="ComboBox_Loaded"
+														SelectedItem="{Binding DataContext.SelectedCommunicationType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Page}}" />
+												</ControlTemplate>
+											</Setter.Value>
+										</Setter>
+									</Style>
+								</DataGridTemplateColumn.HeaderStyle>
+							</DataGridTemplateColumn>
+						</DataGrid.Columns>
+					</DataGrid>
 				</DataTemplate>
 			</TabControl.ContentTemplate>
 		</TabControl>

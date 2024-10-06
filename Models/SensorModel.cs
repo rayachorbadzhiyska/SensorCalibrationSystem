@@ -28,13 +28,6 @@ namespace SensorCalibrationSystem.Models
         /// </summary>
         public List<SensorTechnicalDataModel> TechnicalData { get; set; } = new List<SensorTechnicalDataModel>();
 
-        /// <summary>
-        /// Gets or sets whether the sensor is currently attached.
-        /// </summary>
-        [JsonIgnore]
-        public bool IsAttached { get; set; }
-
-        [JsonConstructor]
         public SensorModel(string name, string type, string imagePath, List<SensorTechnicalDataModel> technicalData)
         {
             Name = name;
