@@ -2,6 +2,8 @@
 #include "Arduino_BHY2.h"
 #include "bosch/common/common.h"
 
+SensorXYZ accelerometer(SENSOR_ID_ACC);
+SensorXYZ gyroscope(SENSOR_ID_GYRO);
 SensorQuaternion rotation(SENSOR_ID_RV);
 
 #define MAX_WRITE_BYTES 64
@@ -12,6 +14,8 @@ char receivedChars[numChars];
 void setup() {
   // Initialize BHI260AP
   BHY2.begin();
+  accelerometer.begin();
+  gyroscope.begin();
 
   // Initialize serial
   Serial.begin(115200);
@@ -19,6 +23,8 @@ void setup() {
 }
 
 bool areQuaternionValuesStreaming = false;
+bool isAccelerometerDataStreaming = false;
+bool isGyroscopeDataStreaming = false;
 const int updateInterval = 200; 
 int previousPrintTime = 0;
 
@@ -57,6 +63,52 @@ void printQuaternionValues() {
 void stopQuaternionValuesStreaming() {
   areQuaternionValuesStreaming = false;
   rotation.end();
+}
+
+void printAccelerometerData() {
+  unsigned long currentTime = millis();
+
+    if (currentTime - previousPrintTime >= updateInterval) {
+      previousPrintTime = currentTime;
+
+      short accX = accelerometer.x();
+      short accY = accelerometer.y();
+      short accZ = accelerometer.z();
+
+      String accelData = "Accelerometer: ";
+      accelData += accX;
+      accelData += " ";
+      accelData += accY;
+      accelData += " ";
+      accelData += accZ;
+
+      Serial.println(accelData);
+    }
+
+    BHY2.update();
+}
+
+void printGyroscopeData() {
+  unsigned long currentTime = millis();
+
+    if (currentTime - previousPrintTime >= updateInterval) {
+      previousPrintTime = currentTime;
+
+      short gyroX = gyroscope.x();
+      short gyroY = gyroscope.y();
+      short gyroZ = gyroscope.z();
+
+      String gyroData = "Gyroscope: ";
+      gyroData += gyroX;
+      gyroData += " ";
+      gyroData += gyroY;
+      gyroData += " ";
+      gyroData += gyroZ;
+
+      Serial.println(gyroData);
+    }
+
+    BHY2.update();
 }
 
 void writeRegister(uint8_t reg, uint8_t *value, uint32_t length) {
@@ -190,6 +242,14 @@ void readSerialData() {
               startStreamingQuaternionValues();
             } else if (strcmp(receivedChars, "STOP_QUATERNION_VALUES_STREAMING") == 0) {
               stopQuaternionValuesStreaming();
+            } else if(strcmp(receivedChars, "START_ACCELEROMETER_DATA_STREAMING") == 0) {
+              isAccelerometerDataStreaming = true;
+            } else if(strcmp(receivedChars, "STOP_ACCELEROMETER_DATA_STREAMING") == 0) {
+              isAccelerometerDataStreaming = false;
+            } else if(strcmp(receivedChars, "START_GYROSCOPE_DATA_STREAMING") == 0) {
+              isGyroscopeDataStreaming = true;
+            } else if(strcmp(receivedChars, "STOP_GYROSCOPE_DATA_STREAMING") == 0) {
+              isGyroscopeDataStreaming = false;
             } else if (strncmp (receivedChars, "READ", 4) == 0) {
                 uint8_t startReg;
                 uint32_t length;
@@ -216,5 +276,13 @@ void loop() {
 
   if (areQuaternionValuesStreaming) {
     printQuaternionValues();
+  }
+
+  if (isAccelerometerDataStreaming) {
+    printAccelerometerData();
+  }
+
+  if (isGyroscopeDataStreaming) {
+    printGyroscopeData();
   }
 }

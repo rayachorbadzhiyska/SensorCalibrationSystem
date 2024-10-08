@@ -1,0 +1,270 @@
+{
+	"Name": "BME688",
+	"Types": [
+		"Accelerometer",
+		"Gyroscope"
+	],
+	"Commands": [
+		{
+			"Address": "0x0001",
+			"Name": "Download Post Mortem Data",
+			"Description": "Requests that the device places all available data relevant to a watchdog or exception-related reset in the Status Interface for the host to read out."
+		},
+		{
+			"Address": "0x0007",
+			"Name": "Set Sensor Data Injection Mode",
+			"Description": "Enables either real time operation using injected sensor data or step-by-step operation."
+		},
+		{
+			"Address": "0x0008",
+			"Name": "Inject Sensor Data",
+			"Description": "Allows injection of sensor data for debugging and firmware-in-the-loop testing."
+		},
+		{
+			"Address": "0x0009",
+			"Name": "FIFO Flush",
+			"Description": "Requests BHI260AP to initiate a data transfer of the content in one or more FIFOs from BHI260AP to the host."
+		},
+		{
+			"Address": "0x000A",
+			"Name": "Soft Pass-Through",
+			"Description": "Used during normal operation to read and write registers on devices attached to the BHI260AP secondary master I2C or SPI busses."
+		},
+		{
+			"Address": "0x000B",
+			"Name": "Request Sensor Self-Test",
+			"Description": "Requests that a specific physical sensor runs its self-test and reports the results."
+		},
+		{
+			"Address": "0x000C",
+			"Name": "Request Sensor Fast Offset Compensation",
+			"Description": "Requests that a specific physical sensor runs fast offset compensation and reports the results."
+		},
+		{
+			"Address": "0x000D",
+			"Name": "Configure Sensor",
+			"Description": "Allows the host to turn on or off a virtual sensor, as well as set its sample rate and latency."
+		},
+		{
+			"Address": "0x000E",
+			"Name": "Change Sensor Dynamic Range",
+			"Description": "Allows the host to select a different dynamic range for a virtual sensor."
+		},
+		{
+			"Address": "0x000F",
+			"Name": "Set Change Sensitivity",
+			"Description": "Sets the change sensitivity for a sensor."
+		},
+		{
+			"Address": "0x0015",
+			"Name": "Control FIFO Format",
+			"Description": "Lets the host change the format and amount of timestamps placed in the wake and non-wake FIFOs."
+		}
+	],
+	"Parameters": [
+		{
+			"ParameterId": "0x0101",
+			"Name": "Meta Event Control (Non-wake-up FIFO)",
+			"Description": "Enables and disables non-wake-up FIFO Meta Events",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0102",
+			"Name": "Meta Event Control (Wake-up FIFO)",
+			"Description": "Enables and disables wake-up FIFO Meta Events",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0103",
+			"Name": "FIFO Control",
+			"Description": "Sets watermark level for Wake-up and Non-Wake-up FIFO buffers",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0104",
+			"Name": "Firmware Version",
+			"Description": "Provides host-readable version information",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0105",
+			"Name": "Timestamps",
+			"Description": "Provides mechanism to translate 40 bit sensor data timestamps to host-relative timestamps",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0106",
+			"Name": "Framework Status",
+			"Description": "Internal Data and Watchdog",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x011F",
+			"Name": "Virtual Sensors Present",
+			"Description": "Contains a read-only 256 bit bitmap indicating which virtual sensors are present in the system",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0120",
+			"Name": "Physical Sensors Present",
+			"Description": "Contains a read-only 64 bit bitmap indicating which physical sensors are present in the system",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0121-0x0160",
+			"Name": "Physical Sensor Information",
+			"Description": "Provides information about specific physical sensors",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0201",
+			"Name": "Calibration state for accelerometer",
+			"Description": "Contains calibration state for accelerometer",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0203",
+			"Name": "Calibration state for gyroscope",
+			"Description": "Contains calibration state for gyroscope",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0205",
+			"Name": "Calibration state for magnetometer",
+			"Description": "Contains calibration state for magnetometer",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x027D",
+			"Name": "SIC Matrix",
+			"Description": "Soft iron calibration matrix",
+			"Access": "write-only"
+		},
+		{
+			"ParameterId": "0x027E",
+			"Name": "BSX Version",
+			"Description": "Version information for BSX library",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0301-0x0395",
+			"Name": "Virtual Sensor Information",
+			"Description": "Provides information about virtual sensors",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0501-0x0595",
+			"Name": "Virtual Sensor Configuration",
+			"Description": "Provides current configuration of virtual sensors",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0900",
+			"Name": "Learning and recognition state",
+			"Description": "Controls learning and recognition state of Self-Learning AI",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0901",
+			"Name": "Read learnt pattern / Write pattern for recognition",
+			"Description": "Reads learnt pattern or writes pattern for recognition in Self-Learning AI",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0902",
+			"Name": "Algorithm parameters",
+			"Description": "Parameters for Self-Learning AI algorithm",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0904",
+			"Name": "Pattern state operation",
+			"Description": "Controls pattern state operations in Self-Learning AI",
+			"Access": "write-only"
+		},
+		{
+			"ParameterId": "0x0905",
+			"Name": "Pattern similarity calculation",
+			"Description": "Calculates similarity between patterns in Self-Learning AI",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0907",
+			"Name": "Driver status",
+			"Description": "Provides status of Self-Learning AI driver",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0A01",
+			"Name": "PDR Full reset",
+			"Description": "Performs full reset of PDR",
+			"Access": "write-only"
+		},
+		{
+			"ParameterId": "0x0A02",
+			"Name": "PDR Position reset",
+			"Description": "Performs position reset of PDR",
+			"Access": "write-only"
+		},
+		{
+			"ParameterId": "0x0A20",
+			"Name": "PDR Reference heading delta",
+			"Description": "Sets reference heading delta for PDR",
+			"Access": "write-only"
+		},
+		{
+			"ParameterId": "0x0A2E",
+			"Name": "PDR Step length",
+			"Description": "Sets step length for PDR",
+			"Access": "write-only"
+		},
+		{
+			"ParameterId": "0x0A40",
+			"Name": "PDR Handedness",
+			"Description": "Sets handedness for PDR",
+			"Access": "write-only"
+		},
+		{
+			"ParameterId": "0x0A42",
+			"Name": "PDR Driver version",
+			"Description": "Provides PDR driver version",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0A43",
+			"Name": "PDR Algorithm version",
+			"Description": "Provides PDR algorithm version",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0A44",
+			"Name": "PDR variant",
+			"Description": "Indicates PDR variant (6DOF or 9DOF)",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0A45",
+			"Name": "PDR Device position",
+			"Description": "Indicates device position for PDR",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0B00",
+			"Name": "SWIM Configuration",
+			"Description": "Configures SWIM parameters",
+			"Access": "read-write"
+		},
+		{
+			"ParameterId": "0x0B01",
+			"Name": "SWIM Algorithm version",
+			"Description": "Provides SWIM algorithm version",
+			"Access": "read-only"
+		},
+		{
+			"ParameterId": "0x0E00-0x0EFF",
+			"Name": "Physical Sensor Control Parameters",
+			"Description": "Allows setting or getting physical sensor control information",
+			"Access": "read-write"
+		}
+	]
+}

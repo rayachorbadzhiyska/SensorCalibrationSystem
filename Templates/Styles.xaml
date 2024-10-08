@@ -269,4 +269,55 @@
 		</Style.Triggers>
 	</Style>
 
+	<Style x:Key="SensorsTabControlStyle" TargetType="TabControl">
+		<Setter Property="ItemContainerStyle">
+			<Setter.Value>
+				<Style TargetType="TabItem">
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="TabItem">
+								<Border
+									Name="Border"
+									Margin="2,0"
+									BorderBrush="Gainsboro"
+									BorderThickness="1,1,1,0"
+									CornerRadius="4,4,0,0">
+									<ContentPresenter
+										x:Name="ContentSite"
+										Margin="12,4"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Content="{Binding Name}" />
+								</Border>
+								<ControlTemplate.Triggers>
+									<Trigger Property="IsSelected" Value="True">
+										<Setter TargetName="Border" Property="Background" Value="White" />
+									</Trigger>
+									<MultiTrigger>
+										<MultiTrigger.Conditions>
+											<Condition Property="IsSelected" Value="False" />
+											<Condition Property="IsMouseOver" Value="False" />
+										</MultiTrigger.Conditions>
+										<MultiTrigger.Setters>
+											<Setter TargetName="Border" Property="Background" Value="#dddddd" />
+										</MultiTrigger.Setters>
+									</MultiTrigger>
+									<MultiTrigger>
+										<MultiTrigger.Conditions>
+											<Condition Property="IsSelected" Value="False" />
+											<Condition Property="IsMouseOver" Value="True" />
+										</MultiTrigger.Conditions>
+										<MultiTrigger.Setters>
+											<Setter TargetName="Border" Property="Background" Value="#cbcbcb" />
+										</MultiTrigger.Setters>
+									</MultiTrigger>
+								</ControlTemplate.Triggers>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 </ResourceDictionary>

@@ -64,7 +64,7 @@ namespace SensorCalibrationSystem.ViewModels
                     QuaternionValuesReceived?.Invoke(this, quaternion);
                 }
             }
-            catch (OperationCanceledException)
+            catch
             {
                 // Since Serial port reading threw an error, then there is no value to be parsed
                 // hence exit the function.

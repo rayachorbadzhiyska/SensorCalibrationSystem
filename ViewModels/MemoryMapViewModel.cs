@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SensorCalibrationSystem.Contracts;
 using SensorCalibrationSystem.Models;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Windows;
 
 namespace SensorCalibrationSystem.ViewModels
 {
-    public class MemoryMapViewModel : INavigationPage, IReloadable, INotifyPropertyChanged
+    public class MemoryMapViewModel : ObservableObject, INavigationPage, IReloadable
     {
         #region Properties Interfaces
 
@@ -52,11 +53,7 @@ namespace SensorCalibrationSystem.ViewModels
         public MemoryMapModel? SelectedMemoryMap
         {
             get => selectedMemoryMap;
-            set
-            {
-                selectedMemoryMap = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref selectedMemoryMap, value);
         }
 
         public List<string> ValueFormats { get; } = new List<string>
@@ -69,31 +66,19 @@ namespace SensorCalibrationSystem.ViewModels
         public string? SelectedValueFormat
         {
             get => selectedValueFormat;
-            set
-            {
-                selectedValueFormat = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref selectedValueFormat, value);
         }
 
         public List<string> CommunicationTypes
         {
             get => communicationTypes;
-            set
-            {
-                communicationTypes = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref communicationTypes, value);
         }
 
         public string SelectedCommunicationType
         {
             get => selectedCommunicationType;
-            set
-            {
-                selectedCommunicationType = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref selectedCommunicationType, value);
         }
 
         #endregion
@@ -234,17 +219,6 @@ namespace SensorCalibrationSystem.ViewModels
         public void OnNavigatedFrom()
         {
             boardCommunicationService.SerialDataReceived -= BoardCommunicationService_SerialDataReceived;
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string? name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         #endregion
